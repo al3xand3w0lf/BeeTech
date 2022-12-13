@@ -1,0 +1,22 @@
+Master asks by sending only one single byte via usart line.
+Master knows from config.txt that there are X number of beehive sensors connected to the Master. Therefor if the master wants to get the sensor data from beehive number 3 the master will send only one byte on the uart line. Asking for Sensor data from beehive 2 the byte would be 0x02, beehive 10 would be 0x0A
+Now master also send RTC Time via UART
+Following protocol fo time:
+Time format is 6 fixed bytes:
+    byte 1: day in HEX
+    byte 2: month in HEX
+    byte 3: year  in HEX; not 2020 but 20
+    byte 4: Hours in HEX
+    byte 5: minutes in HEX
+    byte 6: sec in HEX
+    byte 7: cr as End of Line
+
+Including number of addressed slave this results in following byte array:
+    byte 1: addressed slave in a 8 bit Hex0-254    
+    byte 2: day in HEX
+    byte 3: month in HEX
+    byte 4: year  in HEX; not 2020 but 20
+    byte 5: Hours in HEX
+    byte 6: minutes in HEX
+    byte 7: sec in HEX
+    byte 8: cr as End of Line
