@@ -1,0 +1,24 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: Beetech GSM MKR1400.PcbDoc   08.09.2021  11:12:14
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Beetech GSM MKR1400.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      0.3mm (12mil)                                             Round             20        PTH        281.73mm (11.09inch)
+T2      0.8mm (31mil)                                             Round             6         PTH        10.00mm (0.39inch)
+T3      0.9mm (35mil)                                             Round             7         PTH        15.20mm (0.60inch)
+T4      1mm (39mil)                                               Round             28        PTH        233.66mm (9.20inch)
+T5      1.016mm (40mil)                                           Round             28        PTH        86.39mm (3.40inch)
+T6      1.2mm (47mil)                                             Round             2         PTH        9.60mm (0.38inch)
+T7      3.1mm (122mil)                                            Round             7         PTH        226.99mm (8.94inch)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              98
+
+Two holes at same point : 1
+-----------------------
+768,2510
+
+Total Processing Time (hh:mm:ss) : 00:00:00

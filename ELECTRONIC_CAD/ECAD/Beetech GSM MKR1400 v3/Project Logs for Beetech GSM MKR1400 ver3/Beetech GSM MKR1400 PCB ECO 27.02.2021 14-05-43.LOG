@@ -1,0 +1,13 @@
+Added Component: Designator=R8(RES 0603 FOOTPRINT)
+Add component (AddParameter): Name = "Bezeichnung"; Value = "R SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "71-CRCW060320K0FKEAC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.09"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "20k"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=R8-1
+Added Pin To Net: NetName=NetC7_1 Pin=R8-2
+Change Class Name : Old Net Name=Bee Hive MasterBoard v2 New Net Name=Beetech GSM MKR1400
+Added Member To Class: ClassName=Beetech GSM MKR1400 Member=Component R8 20k Ohm 0603

@@ -1,0 +1,13 @@
+Change Component DesignItemId : Designator=C7 Old DesignItemId=100nF 0805 New DesignItemId=100nF 0603
+Change Component Footprint: Designator=C7 Old Footprint=CAP 0805 New Footprint=CAP 0603
+Change Component Comment : Designator=C7 Old Comment=100nF 0805 New Comment=100nF 0603
+Change component parameters: Designator = "C7" ("C7"); Footprint = "CAP 0805"; UniqueID = "\GVGODUPR" ("\GVGODUPR")
+Change component parameters (AddParameter): Name = "Bezeichnung"; Value = "C SMD"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler Nr"; Value = "710-885012206020"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Hersteller"; Value = "Würth"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Hersteller Nr"; Value = "885012206020"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Preis (CHF)"; Value = "0.05"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Umax"; Value = "10V"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"

@@ -1,0 +1,28 @@
+Change Component Footprint: Designator=P5 Old Footprint=4PIN - RND 205-EK254-2.54-04P New Footprint=2PIN - RND 205-EK254-2.54-02P
+Change Component Comment : Designator=P5 Old Comment=4-Pin Right Angle Housing New Comment=2-Pin Right Angle Housing
+Change component parameters: Designator = "P5" ("P5"); Footprint = "4PIN - RND 205-EK254-2.54-04P"; UniqueID = "\DOXQLQEI" ("\DOXQLQEI")
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.mouser.ch/ProductDetail/TE-Connectivity/640453-2?qs=sGAEpiMZZMs%252bGHln7q6pm5E1Eb6qwPl2KIU5TYv3tVY%3d"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler"; Value = "Distrelec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler 2"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler 2 Nr"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler Nr"; Value = "301-27-918"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Hersteller"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Hersteller Nr"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Preis (CHF)"; Value = "0.60"; VariantName = "[No Variations]"
+Added Component: Designator=P7(7PIN)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC 5V Pin=P7-1
+Added Pin To Net: NetName=GND Pin=P7-2
+Added Pin To Net: NetName=MISO Pin=P7-4
+Added Pin To Net: NetName=MOSI Pin=P7-5
+Added Pin To Net: NetName=SCK Pin=P7-6
+Added Pin To Net: NetName=CS CAN Pin=P7-3
+Added Pin To Net: NetName=CS CAN Pin=U2-23
+Added Net: Name=CS CAN
+Added Pin To Net: NetName=INT CAN Pin=P7-7
+Added Pin To Net: NetName=INT CAN Pin=U2-22
+Added Net: Name=INT CAN
+Added Member To Class: ClassName=Beetech NanoEvery Member=Component P7 8-Pin

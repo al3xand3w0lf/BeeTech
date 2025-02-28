@@ -1,0 +1,55 @@
+Removed Pin From Net: NetName=VCC 3.3V Pin=P?-1
+Removed Pin From Net: NetName=GND Pin=P?-2
+Removed Pin From Net: NetName=VCC 3.3V Pin=R12-2
+Removed Pin From Net: NetName=CS FRAM Pin=U1-8
+Removed Pin From Net: NetName=CS CAN Pin=U1-22
+Removed Pin From Net: NetName=CS TFT Pin=U1-23
+Removed Pin From Net: NetName=VCC 5V Pin=U4-3
+Removed Member From Class: ClassName=Beetech GSM MKR1400 Member=P?
+Removed Member From Class: ClassName=Beetech GSM MKR1400 Member=R12
+Added Component: Designator=C8(CAP 0603)
+Add component (AddParameter): Name = "Bezeichnung"; Value = "C SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "603-CC0603JPX79BB104"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "Yageo"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = "CC0603JPX7R9BB104"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.15"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Umax"; Value = "50V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=U7(TSSOP-16L)
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler2"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler2 Nr"; Value = "1694679"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "595-TXB0106PWR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "Texas Instruments"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = "TXB0106"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Link"; Value = "http://ch.farnell.com/texas-instruments/txb0106pwr/txb-transceiver-tssop16/dp/1694679?ost=1694679&searchView=table&iscrfnonsku=false&ddkey=http%3Ade-CH%2FElement14_Switzerland%2Fsearch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "1.45"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C8-1
+Added Pin To Net: NetName=VCC 3.3V Pin=C8-2
+Added Pin To Net: NetName=VCC 3.3V Pin=U1-26
+Added Pin To Net: NetName=VCC 3.3V Pin=U7-2
+Added Pin To Net: NetName=CS CAN Pin=U7-3
+Added Pin To Net: NetName=MISO Pin=U7-4
+Added Pin To Net: NetName=MOSI Pin=U7-5
+Added Pin To Net: NetName=SCK Pin=U7-6
+Added Pin To Net: NetName=CAN INT Pin=U7-7
+Added Pin To Net: NetName=VCC 3.3V Pin=U7-8
+Added Pin To Net: NetName=GND Pin=U7-9
+Added Pin To Net: NetName=VCC 5V Pin=U7-15
+Change Net Name : Old Net Name=VCC 5V New Net Name=VCC 5V SYS
+Added Pin To Net: NetName=CAN INT 5V Pin=U7-10
+Added Net: Name=CAN INT 5V
+Added Pin To Net: NetName=CS CAN 5V Pin=U7-14
+Added Net: Name=CS CAN 5V
+Added Pin To Net: NetName=MISO 5V Pin=U7-13
+Added Net: Name=MISO 5V
+Added Pin To Net: NetName=MOSI 5V Pin=U7-12
+Added Net: Name=MOSI 5V
+Added Pin To Net: NetName=SCK 5V Pin=U7-11
+Added Net: Name=SCK 5V
+Added Pin To Net: NetName=VCC 5V Pin=U4-3
+Added Net: Name=VCC 5V
+Added Member To Class: ClassName=Beetech GSM MKR1400 Member=Component C8 100nF 0603_1
+Added Member To Class: ClassName=Beetech GSM MKR1400 Member=Component U7 TXB0106

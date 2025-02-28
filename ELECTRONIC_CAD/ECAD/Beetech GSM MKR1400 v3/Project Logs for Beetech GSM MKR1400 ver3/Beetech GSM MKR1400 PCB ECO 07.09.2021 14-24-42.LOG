@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=CS CAN Pin=U7-3
+Removed Pin From Net: NetName=MISO Pin=U7-4
+Removed Pin From Net: NetName=SCK Pin=U7-6
+Removed Pin From Net: NetName=CAN INT Pin=U7-7
+Removed Pin From Net: NetName=CAN INT 5V Pin=U7-10
+Removed Pin From Net: NetName=SCK 5V Pin=U7-11
+Removed Pin From Net: NetName=MISO 5V Pin=U7-13
+Removed Pin From Net: NetName=CS CAN 5V Pin=U7-14
+Added Pin To Net: NetName=CAN INT Pin=U7-3
+Added Pin To Net: NetName=SCK Pin=U7-4
+Added Pin To Net: NetName=MISO Pin=U7-6
+Added Pin To Net: NetName=CS CAN Pin=U7-7
+Added Pin To Net: NetName=CS CAN 5V Pin=U7-10
+Added Pin To Net: NetName=MISO 5V Pin=U7-11
+Added Pin To Net: NetName=SCK 5V Pin=U7-13
+Added Pin To Net: NetName=CAN INT 5V Pin=U7-14

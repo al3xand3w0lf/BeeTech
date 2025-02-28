@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [Beetech GSM MKR1400.PcbDoc]
+   Generated File[Beetech GSM MKR1400.TXT]
+   Generated File[Beetech GSM MKR1400.LDP]
+   Generated File[Beetech GSM MKR1400.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 11:12:15 On 08.09.2021

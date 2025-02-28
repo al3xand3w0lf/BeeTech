@@ -1,0 +1,14 @@
+Added Component: Designator=C10(CAP 0603)
+Add component (AddParameter): Name = "Bezeichnung"; Value = "C SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Dielektrikum"; Value = "X5R"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "810-C1608X5R1A106K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "TDK"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = "C1608X5R1A106K080AC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.5"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Umax"; Value = "10V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10uF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C10-1
+Added Pin To Net: NetName=VCC 3.3V Pin=C10-2
+Added Member To Class: ClassName=Beetech GSM MKR1400 Member=Component C10 10uF 0603

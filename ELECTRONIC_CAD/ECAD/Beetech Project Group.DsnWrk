@@ -1,0 +1,22 @@
+[ProjectGroup]
+Version=1.0
+[Project1]
+ProjectPath=Beetech GSM MKR1400 v2\Beetech GSM MKR1400 ver3.PrjPcb
+[Project2]
+ProjectPath=Beetech NanoEvery v2\Beetech NanoEvery v2.PrjPcb
+[Project3]
+ProjectPath=Beetech NanoEvery v4\Beetech_NanoEvery v4.PrjPcb
+[Project4]
+ProjectPath=Beetech Scale Board ver 3_1\Bee Hive Scale Board 3_1.PrjPcb
+[Project5]
+ProjectPath=Beetech Scale Board ver 2\Bee Hive Scale Board 2.PrjPcb
+[Project6]
+ProjectPath=Beetech Scale Board ver 1\Bee Hive Scale Board.PrjPcb
+[Project7]
+ProjectPath=D:\Documents\PROJECTS\102 uBlox\uBlox Raspberry PI NEO 2\uBlox Raspberry PI NEO 2.PrjPcb
+[Project8]
+ProjectPath=D:\Documents\PROJECTS\102 uBlox\uBlox v3_2 ZED F9P - HELIOS\uBlox ZED F9P HELIOS V3_2.PrjPcb
+[Project9]
+ProjectPath=D:\Documents\PROJECTS\103 EOS\EOS RTK 2 ZED-F9P\4 ECAD\EOS RTK 2.3\EOS RTK V2.3.PrjPcb
+[Project10]
+ProjectPath=D:\Documents\PROJECTS\101 HELIOS\4 E CAD\HELIOS PCB v4.0\HELIOS v4.0.PrjPcb

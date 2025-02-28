@@ -1,0 +1,27 @@
+Importer Log Report
+Project : NANOEveryV3.0.PrjPcb
+
+Section : Analyze Document - C:\Users\alexa\Documents\PROJEKTE\107 BeeHive\ECAD\NanoEvery Eagle\NANOEveryV3.0.brd
+    Analyzing data of C:\Users\alexa\Documents\PROJEKTE\107 BeeHive\ECAD\NanoEvery Eagle\NANOEveryV3.0.brd
+    Load settings
+    Load layers 175
+    Load board
+    Load Library "Arduino-ICs"
+    Load Packages 2
+    Load Library "Arduino-diodes"
+    Load Packages 3
+    Load Library "Arduino-pushbuttons"
+    Load Packages 1
+    Load Library "Arduino-rcl"
+    Load Packages 2
+    Load Library "Arduino-utility"
+    Load Packages 3
+    Load Library "Arduino-connectors"
+    Load Packages 3
+    Load Library "Arduino-ucs&SoCs"
+    Load Packages 2
+    Load Library "Arduino-transistors"
+    Load Packages 1
+    ERROR: Unhandled typemfgpreviewcolors
+    ERROR: Unhandled typeerrors
+EndSection

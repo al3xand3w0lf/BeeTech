@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=MISO Pin=U3-2
+Removed Pin From Net: NetName=VCC 3.3V Pin=U3-3
+Removed Pin From Net: NetName=GND Pin=U3-4
+Removed Pin From Net: NetName=MOSI Pin=U3-5
+Removed Pin From Net: NetName=SCK Pin=U3-6
+Removed Pin From Net: NetName=VCC 3.3V Pin=U3-7
+Removed Pin From Net: NetName=VCC 3.3V Pin=U3-8
+Added Member To Class: ClassName=Beetech GSM MKR1400 Member=Component C1 100nF 0603_1
+Added Member To Class: ClassName=Beetech GSM MKR1400 Member=Component C2 100nF 0603_1

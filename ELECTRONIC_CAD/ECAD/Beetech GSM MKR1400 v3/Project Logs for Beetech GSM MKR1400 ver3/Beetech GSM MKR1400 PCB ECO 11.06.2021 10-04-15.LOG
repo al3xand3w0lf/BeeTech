@@ -1,0 +1,44 @@
+Removed Pin From Net: NetName=SOUND_DATA Pin=C7-2
+Removed Pin From Net: NetName=VCC 3.3V Pin=P7-1
+Removed Pin From Net: NetName=CS TFT Pin=U1-16
+Removed Pin From Net: NetName=CS TFT Pin=U1-16
+Removed Pin From Net: NetName=RX 1 Pin=U1-22
+Removed Pin From Net: NetName=TX 1 Pin=U1-23
+Removed Pin From Net: NetName=GND Pin=U1-25
+Change Component Footprint: Designator=P7 Old Footprint=4PIN - RND 205-EK254-2.54-04P New Footprint=7PIN - 1.27mm
+Change Component Footprint: Designator=C7 Old Footprint=CAP 0805 New Footprint=CAP 0603
+Change Component Comment : Designator=P7 Old Comment=4-Pin Right Angle Housing New Comment=8-Pin 1.27mm
+Change Component Comment : Designator=C7 Old Comment=100nF 0805 New Comment=100nF 0603
+Change component parameters: Designator = "C7" ("C7"); Footprint = "CAP 0805"; UniqueID = "\TYRHTZPL" ("\TYRHTZPL")
+Change component parameters (AddParameter): Name = "Bezeichnung"; Value = "C SMD"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler Nr"; Value = "710-885012206020"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Hersteller"; Value = "Würth"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Hersteller Nr"; Value = "885012206020"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Preis (CHF)"; Value = "0.05"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Umax"; Value = "10V"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "P7" ("P7"); Footprint = "4PIN - RND 205-EK254-2.54-04P"; UniqueID = "\PRMEKSVA" ("\PRMEKSVA")
+Change component parameters (AddParameter): Name = "Haendler"; Value = "MOUSER"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Haendler Nr"; Value = "855-M50-3530842"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Hersteller"; Value = "Harwin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Hersteller Nr"; Value = "M50-3530842"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Link"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=SOUND_DATA Pin=C7-1
+Added Pin To Net: NetName=VCC 5V Pin=P7-1
+Added Pin To Net: NetName=MISO Pin=P7-4
+Added Pin To Net: NetName=MOSI Pin=P7-5
+Added Pin To Net: NetName=SCK Pin=P7-6
+Change Net Name : Old Net Name=V IN uC New Net Name=NetR7_1
+Added Pin To Net: NetName=CAN INT Pin=P7-7
+Added Pin To Net: NetName=CAN INT Pin=U1-16
+Added Pin To Net: NetName=CAN INT Pin=U1-16
+Added Net: Name=CAN INT
+Added Pin To Net: NetName=CS CAN Pin=P7-3
+Added Pin To Net: NetName=CS CAN Pin=U1-20
+Added Net: Name=CS CAN
+Added Pin To Net: NetName=NetC7_2 Pin=C7-2
+Added Pin To Net: NetName=NetC7_2 Pin=P6-3
+Added Pin To Net: NetName=NetC7_2 Pin=R8-2
+Added Net: Name=NetC7_2

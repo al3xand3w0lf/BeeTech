@@ -1,0 +1,13 @@
+Added Component: Designator=C9(CAP 0603)
+Add component (AddParameter): Name = "Bezeichnung"; Value = "C SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "603-CC0603JPX79BB104"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "Yageo"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = "CC0603JPX7R9BB104"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.15"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Umax"; Value = "50V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C9-1
+Added Pin To Net: NetName=VCC 5V SYS Pin=C9-2
+Added Member To Class: ClassName=Beetech GSM MKR1400 Member=Component C9 100nF 0603_1

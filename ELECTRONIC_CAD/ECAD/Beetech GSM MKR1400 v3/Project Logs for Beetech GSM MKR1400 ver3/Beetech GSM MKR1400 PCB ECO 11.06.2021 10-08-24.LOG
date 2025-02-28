@@ -1,0 +1,23 @@
+Removed Pin From Net: NetName=V IN Pin=P3-1
+Removed Pin From Net: NetName=GND Pin=P3-2
+Removed Pin From Net: NetName=CS CAN Pin=U1-20
+Removed Member From Class: ClassName=Beetech GSM MKR1400 Member=P3
+Added Component: Designator=P?(4PIN - RND 205-EK254-2.54-04P)
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.mouser.ch/ProductDetail/TE-Connectivity/640453-2?qs=sGAEpiMZZMs%252bGHln7q6pm5E1Eb6qwPl2KIU5TYv3tVY%3d"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Distrelec"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler 2"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler 2 Nr"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "301-27-920"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "RND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = "RND 205-EK254-2.54-04P"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.60"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC 3.3V Pin=P?-1
+Added Pin To Net: NetName=GND Pin=P?-2
+Added Pin To Net: NetName=SCL Pin=P?-3
+Added Pin To Net: NetName=SCL Pin=U1-21
+Added Net: Name=SCL
+Added Pin To Net: NetName=SDA Pin=P?-4
+Added Pin To Net: NetName=SDA Pin=U1-20
+Added Net: Name=SDA
+Added Member To Class: ClassName=Beetech GSM MKR1400 Member=Component P? 4-Pin Right Angle Housing

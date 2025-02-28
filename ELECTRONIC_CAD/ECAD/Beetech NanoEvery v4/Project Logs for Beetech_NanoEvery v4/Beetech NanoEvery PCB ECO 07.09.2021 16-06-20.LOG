@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=VCC 3.3V Pin=P6-1
+Removed Pin From Net: NetName=GND Pin=P6-2
+Removed Pin From Net: NetName=SDA 3.3V Pin=P6-3
+Removed Pin From Net: NetName=SCL 3.3V Pin=P6-4
+Removed Pin From Net: NetName=GND Pin=S1-1
+Removed Pin From Net: NetName=GND Pin=S1-10
+Removed Member From Class: ClassName=Beetech NanoEvery Member=P6
+Removed Member From Class: ClassName=Beetech NanoEvery Member=S1
+Added Pin To Net: NetName=SOUND_DATA Pin=C7-1

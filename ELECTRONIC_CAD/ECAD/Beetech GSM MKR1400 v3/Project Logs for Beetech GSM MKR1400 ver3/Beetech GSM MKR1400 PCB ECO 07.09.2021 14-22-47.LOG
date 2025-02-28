@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=CS CAN Pin=P3-3
+Removed Pin From Net: NetName=MISO Pin=P3-4
+Removed Pin From Net: NetName=MOSI Pin=P3-5
+Removed Pin From Net: NetName=SCK Pin=P3-6
+Removed Pin From Net: NetName=CAN INT Pin=P3-7
+Added Pin To Net: NetName=CS CAN 5V Pin=P3-3
+Added Pin To Net: NetName=MISO 5V Pin=P3-4
+Added Pin To Net: NetName=MOSI 5V Pin=P3-5
+Added Pin To Net: NetName=SCK 5V Pin=P3-6
+Added Pin To Net: NetName=CAN INT 5V Pin=P3-7
