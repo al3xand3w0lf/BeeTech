@@ -248,7 +248,7 @@ void setup()
     ; // wait for serial port to connect. Needed for native USB port only
     }*/
 
-    //delay(3000);
+    delay(3000);
     Serial.println("");
     Serial.println("-----------------");
     Serial.println("- System Start  -");
@@ -272,61 +272,42 @@ void setup()
 
     Serial.println("---");
 
-    delay(1000);
-    init_tft();
-    digitalWrite(TFT_EN, HIGH);  // turn the LED on (HIGH is the voltage level)
-    //digitalWrite(TFT_EN, LOW); 
-    
-    tft.fillScreen(ILI9341_BLACK);
-    testLines(ILI9341_CYAN);
-    delay(3000);
-    tft.fillScreen(ILI9341_BLACK);
-    tft.setCursor(0,0);
-    tft.setTextColor(ILI9341_GREEN);
-    //tft.println(stationName); // not known at this stage
-    tft.println("MASTER"); 
   
     // --- SD Card ---
     sdCard_init();
-    i = sdCard_readConfigFile();
-    if(i == 1){
-       tft.fillScreen(ILI9341_BLACK);
-       tft.setCursor(0,0);
-       tft.println("SD Card fine");
-       tft.println("- Found cfg File");
-      }
-    else{
-      //tft.fillScreen(ILI9341_BLACK);
-      tft.println("SD Card error");
-      tft.println("- No cfg File");
-    }
-
+    sdCard_readConfigFile();
 
     // --- Modem ---
-    //tft.fillScreen(ILI9341_BLACK);
-    tft.println("Starting Modem");
-    tft.println("- connecting...");
-    i = InitModem();  // works
-    if(i == 1){
-       tft.println("- Modem started");
-      }
-    else
-    {
-      tft.println("- Modem ERROR");
-    }
-
-    delay(3000);
-    tft.fillScreen(ILI9341_BLACK);
-    tft.setCursor(0,0);
+    InitModem();  // works
 
     // --- Temp Sensors ---
     TEMP1_CON = init_DS18B20_Temp1();
     TEMP2_CON = init_DS18B20_Temp2();
     
     Serial.println("---");
-      
+    
+    
     // --- SCale ---
     SCALE_CON = scale_initialize();
+     
+    digitalWrite(TFT_EN, HIGH);  // turn the LED on (HIGH is the voltage level)
+    //digitalWrite(TFT_EN, LOW);  
+    init_tft();
+
+  /*
+    while(1){
+        
+        tft.fillScreen(ILI9341_BLACK);
+        testLines(ILI9341_CYAN);
+        tft.fillScreen(ILI9341_BLACK);
+        tft.setCursor(0,0);
+        tft.setTextColor(ILI9341_GREEN);
+        tft.println(stationName);
+        tft.println("MASTER");    
+        delay(5000);
+        Serial.println("test");
+        }
+*/
         
     if(SCALE_CON)
         tft.println("scale init OK");
@@ -341,10 +322,9 @@ void setup()
     else
         tft.println("Temp 2 ERROR");
     
-    tft.println("OP mode NETWORK");
     operationMode_int = MODE_MASTER_NETWORK;
 
-    //delay(5000);
+    delay(5000);
     // --- Config TIME --------------------
     rtc.begin(); // initialize RTC
     rtc.setTime(12, 22, 33);
@@ -355,9 +335,7 @@ void setup()
     //--- hook - database enabled / disabled
     //databaseLog_int = 0;
     
-    if(databaseLog_int == 1){
-        tft.println("Connect to DB");
-        tft.println("- pls wait");              
+    if(databaseLog_int == 1){       
         InitModem();        
         rtc.setEpoch(gsmAccess.getTime());                                        
     }
@@ -382,9 +360,7 @@ void setup()
       if(i > 20)
         break;
       }
-     Serial.println("CAN Started!"); 
-     tft.println("CAN started");
-    delay(3000);                 
+     Serial.println("CAN Started!");   
   
     // --- LOG SCREEN -----------------------
     tft.fillScreen(ILI9341_BLACK);

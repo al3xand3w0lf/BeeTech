@@ -1,23 +1,24 @@
 // https://github.com/ChuckBell/MySQL_Connector_Arduino/wiki/Common-Solutions
 
-/*
+
+// things mobile
 #define SECRET_PINNUMBER     ""
-#define SECRET_GPRS_APN      "TM" // replace your GPRS APN
+#define SECRET_GPRS_APN      "TM"  // replace your GPRS APN
 #define SECRET_GPRS_LOGIN    ""    // replace with your GPRS login
-#define SECRET_GPRS_PASSWORD "" // replace with your GPRS password
+#define SECRET_GPRS_PASSWORD ""    // replace with your GPRS password
 
-*/
-
+/*
+// swisscom
 #define SECRET_PINNUMBER     ""
 #define SECRET_GPRS_APN      "gprs.swisscom.ch" // replace your GPRS APN
-#define SECRET_GPRS_LOGIN    "gprs"    // replace with your GPRS login
-#define SECRET_GPRS_PASSWORD "gprs" // replace with your GPRS password
+#define SECRET_GPRS_LOGIN    "gprs"             // replace with your GPRS login
+#define SECRET_GPRS_PASSWORD "gprs"             // replace with your GPRS password
+*/
 
 const char PINNUMBER[]     = SECRET_PINNUMBER;
 const char GPRS_APN[]      = SECRET_GPRS_APN;
 const char GPRS_LOGIN[]    = SECRET_GPRS_LOGIN;
 const char GPRS_PASSWORD[] = SECRET_GPRS_PASSWORD;
-
 
 
 
@@ -27,9 +28,8 @@ GPRS gprs2;
 GSM gsmAccess2;
 
 
-int InitModem() {
+void InitModem() {
  // Initialize serial and wait for port to open:
- int cnt = 0;
 
  Serial.println("---");
  Serial.println("Starting Arduino GPRS ping.");
@@ -39,22 +39,16 @@ int InitModem() {
  // After starting the modem with GSM.begin()
  // attach the shield to the GPRS network with the APN, login and password
  while (!connected) {
-  
-
    if ((gsmAccess2.begin(PINNUMBER) == GSM_READY) &&
        (gprs2.attachGPRS(GPRS_APN, GPRS_LOGIN, GPRS_PASSWORD) == GPRS_READY)) {
      connected = true;
    } else {
      Serial.println("Not connected");
      delay(1000);
-     cnt++;
-     if(cnt > 2)
-       return 0;
    }
  }
  Serial.println("Modem started");
  Serial.println("---");
- return 1;
 }
 
 
