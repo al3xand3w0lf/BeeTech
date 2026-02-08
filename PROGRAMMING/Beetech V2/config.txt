@@ -22,8 +22,12 @@ upload_interval=30
 # ===========================================
 # WiFi credentials
 # ===========================================
-wifi_ssid=ETHIGPWIFI
-wifi_password=ETHIGPWIFI
+w#ifi_ssid=ETHIGPWIFI
+w#ifi_password=ETHIGPWIFI
+
+wifi_ssid=FibreBox_X6-2FF847
+wifi_password=WallaWalla40!
+
 
 # ===========================================
 # MySQL Database (direct connection like V1)

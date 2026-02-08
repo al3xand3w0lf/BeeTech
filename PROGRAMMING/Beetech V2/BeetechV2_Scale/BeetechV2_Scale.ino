@@ -28,7 +28,7 @@
 
 // MySQL direct connection for ESP32
 #define ESP32_MYSQL_DEBUG_PORT Serial
-#define _ESP32_MYSQL_LOGLEVEL_ 1
+#define _ESP32_MYSQL_LOGLEVEL_ 2
 #include <ESP32_MySQL.h>
 
 // =============================================================================
@@ -134,6 +134,7 @@ void oled_showError(const char* error);
 // Database.ino
 bool wifi_connect();
 bool db_connect();
+bool db_testTCPConnection();
 bool db_uploadData(int stationNum, const char* stationName, float temp, float weight);
 
 // Terminal.ino
