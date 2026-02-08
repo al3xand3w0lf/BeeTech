@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=I2C_SCL Pin=CN5-1
+Removed Pin From Net: NetName=I2C_SDA Pin=CN5-2
+Added Pin To Net: NetName=SCL Pin=CN5-1
+Added Pin To Net: NetName=SDA Pin=CN5-2

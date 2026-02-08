@@ -1,0 +1,3 @@
+Layer Pairs Export File for PCB: D:\Documents\PROJECTS\107 Beetech\BeeTech\ELECTRONIC_CAD\ECAD\Beetech Metro Shield 1.0\Beetech Metro Shield 1.0.PcbDoc
+LayersSetName=Top_Bot_Thru_Holes|DrillFile=beetech metro shield 1.0-roundholes.txt|DrillLayers=gtl,gbl
+LayersSetName=Top_Bot_Slot_Holes|DrillFile=beetech metro shield 1.0-slotholes.txt|DrillLayers=gtl,gbl

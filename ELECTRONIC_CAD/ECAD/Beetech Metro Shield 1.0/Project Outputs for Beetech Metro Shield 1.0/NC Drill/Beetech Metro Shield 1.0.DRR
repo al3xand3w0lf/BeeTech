@@ -1,0 +1,18 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: Beetech Metro Shield 1.0.PcbDoc   06.02.2026  09:24:17
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Beetech Metro Shield 1.0-RoundHoles.TXT
+ASCII SlotHoles File : Beetech Metro Shield 1.0-SlotHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      0.3mm (12mil)                                             Round             73        PTH        415.71mm (16.37inch)
+T2      0.9mm (35mil)                                             Round             32        PTH        128.53mm (5.06inch)
+T3      1mm (39mil)                                               Round             11        PTH        43.59mm (1.72inch)
+T4      2mm (79mil)                                               Slot              4         PTH        169.83mm (6.69inch)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              120
+
+Total Processing Time (hh:mm:ss) : 00:00:00

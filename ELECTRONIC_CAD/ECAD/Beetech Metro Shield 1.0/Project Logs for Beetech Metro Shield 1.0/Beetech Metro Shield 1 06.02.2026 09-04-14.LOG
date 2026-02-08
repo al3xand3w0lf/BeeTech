@@ -1,0 +1,86 @@
+Added Component: Designator=D1(LED SMD 0603 FOOTPRINT)
+Add component (AddParameter): Name = "COLOR"; Value = "GREEN"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Forward Voltage"; Value = "2.65"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "604-APT1608LZGCK"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "Knightbright"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller NR"; Value = "APT1608LZGCK"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "If"; Value = "2mA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Link"; Value = "http://ch.farnell.com/kingbright/kpt-1608lvzgck/led-gr-n-50mcd-525nm-smd/dp/2610409"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.321"; VariantName = "[No Variations]"
+Added Component: Designator=D2(LED SMD 0603 FOOTPRINT)
+Add component (AddParameter): Name = "COLOR"; Value = "RED"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Forward Voltage"; Value = "1.8V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "604-APT1608LSECKJ3RV"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "Knightbright"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller NR"; Value = "APT1608LSECKJ3RV"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "If"; Value = "2mA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.6"; VariantName = "[No Variations]"
+Added Component: Designator=D3(LED SMD 0603 FOOTPRINT)
+Add component (AddParameter): Name = "COLOR"; Value = "BLUE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Forward Voltage"; Value = "2.65v"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "604-APT1608LVBCD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "Knightbright"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller NR"; Value = "APT1608LVBC/D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "If"; Value = "2mA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Link"; Value = "https://www.mouser.ch/ProductDetail/Kingbright/APT1608LVBC-D?qs=sGAEpiMZZMuCm2JlHBGefkORPgrtEizykCFNBGYC3wJYND9tUwO9bA%3d%3d"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.38"; VariantName = "[No Variations]"
+Added Component: Designator=R2(RES 0603 FOOTPRINT - OUTLINE)
+Add component (AddParameter): Name = "Bezeichnung"; Value = "R SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "603-RC0603FR-07330RL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "YAGEO"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = "RC0603FR-07330RL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.01"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "330"; VariantName = "[No Variations]"
+Added Component: Designator=R3(RES 0603 FOOTPRINT - OUTLINE)
+Add component (AddParameter): Name = "Bezeichnung"; Value = "R SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler2"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler2 Nr"; Value = "2059597"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "71-CRCW0603750RFKEAH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.0123"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "750"; VariantName = "[No Variations]"
+Added Component: Designator=R4(RES 0603 FOOTPRINT - OUTLINE)
+Add component (AddParameter): Name = "Bezeichnung"; Value = "R SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Haendler Nr"; Value = "603-RC0603FR-07330RL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller"; Value = "YAGEO"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Hersteller Nr"; Value = "RC0603FR-07330RL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "housing/footprint"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Preis (CHF)"; Value = "0.01"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "330"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=D1-2
+Added Pin To Net: NetName=GND Pin=D2-2
+Added Pin To Net: NetName=GND Pin=D3-2
+Added Pin To Net: NetName=LED 1 B Pin=CN8-1
+Added Pin To Net: NetName=LED 1 B Pin=R4-2
+Added Net: Name=LED 1 B
+Added Pin To Net: NetName=LED 1 G Pin=CN8-3
+Added Pin To Net: NetName=LED 1 G Pin=R2-2
+Added Net: Name=LED 1 G
+Added Pin To Net: NetName=LED 1 R Pin=CN8-2
+Added Pin To Net: NetName=LED 1 R Pin=R3-2
+Added Net: Name=LED 1 R
+Added Pin To Net: NetName=NetD1_1 Pin=D1-1
+Added Pin To Net: NetName=NetD1_1 Pin=R2-1
+Added Net: Name=NetD1_1
+Added Pin To Net: NetName=NetD2_1 Pin=D2-1
+Added Pin To Net: NetName=NetD2_1 Pin=R3-1
+Added Net: Name=NetD2_1
+Added Pin To Net: NetName=NetD3_1 Pin=D3-1
+Added Pin To Net: NetName=NetD3_1 Pin=R4-1
+Added Net: Name=NetD3_1
+Added Member To Class: ClassName=Beetech Metro Shield 1.0 Member=Component D1 LED Diode SMD LOW CURRENT
+Added Member To Class: ClassName=Beetech Metro Shield 1.0 Member=Component D2 LED Diode SMD LOW CURRENT
+Added Member To Class: ClassName=Beetech Metro Shield 1.0 Member=Component D3 LED Diode SMD LOW CURRENT
+Added Member To Class: ClassName=Beetech Metro Shield 1.0 Member=Component R2 330 Ohm 0603
+Added Member To Class: ClassName=Beetech Metro Shield 1.0 Member=Component R3 750 Ohm 0603
+Added Member To Class: ClassName=Beetech Metro Shield 1.0 Member=Component R4 330 Ohm 0603
