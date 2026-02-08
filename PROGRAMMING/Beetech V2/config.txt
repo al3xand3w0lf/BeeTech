@@ -1,0 +1,41 @@
+# Beetech V2 Configuration File
+# Copy this file to SD card root as config.txt
+
+# ===========================================
+# Station identification
+# ===========================================
+station_number=0
+station_name=Beehive_Lab
+
+# ===========================================
+# Scale calibration
+# ===========================================
+calibration_factor=-24200
+scale_offset=0.0
+
+# ===========================================
+# Timing (in seconds)
+# ===========================================
+dataPoll_interval=10
+upload_interval=30
+
+# ===========================================
+# WiFi credentials
+# ===========================================
+wifi_ssid=ETHIGPWIFI
+wifi_password=ETHIGPWIFI
+
+# ===========================================
+# MySQL Database (direct connection like V1)
+# ===========================================
+db_server=91.204.46.146
+db_port=3306
+db_user=k139859_n
+db_password=22222
+db_name=k139859_n
+db_table=BeetechData03
+
+# ===========================================
+# Power management
+# ===========================================
+deep_sleep_enabled=0
