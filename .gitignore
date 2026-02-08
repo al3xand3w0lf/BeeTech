@@ -1,0 +1,52 @@
+# =============================
+# Altium Designer
+# =============================
+*.log
+*.LOG
+Project Logs for*/
+__Previews/
+*.drc
+*.REPPreview
+*.LDPPreview
+*.SchDocPreview
+*.PcbDocPreview
+debug.log
+
+# =============================
+# Eagle CAD
+# =============================
+*.b#*
+*.s#*
+*.l#*
+
+# =============================
+# SolidWorks
+# =============================
+~$*.SLDPRT
+~$*.SLDASM
+~$*.SLDDRW
+*.sldprt.bak
+*.sldasm.bak
+
+# =============================
+# Arduino IDE
+# =============================
+build/
+*.elf
+*.hex
+*.bin
+
+# =============================
+# OS & IDE
+# =============================
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*~
+.vscode/
+
+# =============================
+# Claude Code
+# =============================
+.claude/
