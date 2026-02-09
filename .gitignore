@@ -4,7 +4,9 @@
 *.log
 *.LOG
 Project Logs for*/
+Project Outputs for*/
 __Previews/
+History/
 *.drc
 *.REPPreview
 *.LDPPreview
