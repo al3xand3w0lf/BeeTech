@@ -21,13 +21,13 @@
 // =============================================================================
 // Pin Configuration
 // =============================================================================
-#define HX711_DOUT_PIN    25    // A1 - Data
-#define HX711_CLK_PIN     26    // A0 - Clock
+#define HX711_DOUT_PIN    26    // A1 - Data
+#define HX711_CLK_PIN     25    // A0 - Clock
 
 // =============================================================================
 // Calibration - ADJUST THIS VALUE
 // =============================================================================
-long CALIBRATION_FACTOR = -24200;  // Adjust for your load cells
+long CALIBRATION_FACTOR = -17200;  // Adjust for your load cells
 
 // =============================================================================
 // Objects

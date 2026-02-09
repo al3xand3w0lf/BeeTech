@@ -25,8 +25,11 @@ upload_interval=30
 w#ifi_ssid=ETHIGPWIFI
 w#ifi_password=ETHIGPWIFI
 
-wifi_ssid=FibreBox_X6-2FF847
-wifi_password=WallaWalla40!
+w#ifi_ssid=FibreBox_X6-2FF847
+w#ifi_password=WallaWalla40!
+
+wifi_ssid=TP-Link_E0EE
+wifi_password=63789252
 
 
 # ===========================================

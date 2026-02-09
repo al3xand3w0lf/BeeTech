@@ -21,13 +21,18 @@
 // =============================================================================
 // Configuration - EDIT THESE VALUES
 // =============================================================================
+/*
 const char* WIFI_SSID     = "FibreBox_X6-2FF847";
 const char* WIFI_PASSWORD = "WallaWalla40!";
+*/
 
 /*
 const char* WIFI_SSID     = "ETHIGPWIFI";
 const char* WIFI_PASSWORD = "ETHIGPWIFI";
 */
+const char* WIFI_SSID     = "TP-Link_E0EE";
+const char* WIFI_PASSWORD = "63789252";
+
 // MySQL Server
 IPAddress server_ip(91, 204, 46, 146);
 uint16_t  server_port = 3306;
