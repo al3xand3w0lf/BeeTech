@@ -50,7 +50,7 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
-DocumentPath=Beetech Metro Shield 1.0.SchDoc
+DocumentPath=Beetech Metro Shield 1.1.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -67,7 +67,7 @@ GenerateClassCluster=0
 DocumentUniqueId=PGZYLJHI
 
 [Document2]
-DocumentPath=Beetech Metro Shield 1.0.PcbDoc
+DocumentPath=Beetech Metro Shield 1.1.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -102,6 +102,23 @@ DocumentUniqueId=TGWNBYAY
 
 [Document4]
 DocumentPath=Job Output File-different BOM.OutJob
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=0
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
+[Document5]
+DocumentPath=Beetech Metro Shield 1.1.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -202,334 +219,338 @@ DocumentPath=Project Outputs for Beetech Metro Shield 1.0\Design Rule Check - Be
 DItemRevisionGUID=
 
 [GeneratedDocument22]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Design Rule Check - uBlox ZED F9P HandHeld.html
+DocumentPath=Project Outputs for Beetech Metro Shield 1.1\Design Rule Check - Beetech Metro Shield 1.html
 DItemRevisionGUID=
 
 [GeneratedDocument23]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Design Rule Check - uBlox ZED F9P Miratlas.html
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Design Rule Check - uBlox ZED F9P HandHeld.html
 DItemRevisionGUID=
 
 [GeneratedDocument24]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Design Rule Check - uBlox ZED F9P Miratlas.html
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Design Rule Check - uBlox ZED F9P Miratlas.html
 DItemRevisionGUID=
 
 [GeneratedDocument25]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Design Rule Check - uBlox ZED F9P Miratlas.html
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Design Rule Check - uBlox ZED F9P Miratlas.html
 DItemRevisionGUID=
 
 [GeneratedDocument26]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\NC Drill\uBlox ZED F9P HandHeld-RoundHoles.TXT
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Design Rule Check - uBlox ZED F9P Miratlas.html
 DItemRevisionGUID=
 
 [GeneratedDocument27]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\NC Drill\uBlox ZED F9P HandHeld-SlotHoles.TXT
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\NC Drill\uBlox ZED F9P HandHeld-RoundHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument28]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\NC Drill\uBlox ZED F9P HandHeld.DRR
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\NC Drill\uBlox ZED F9P HandHeld-SlotHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument29]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.EXTREP
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\NC Drill\uBlox ZED F9P HandHeld.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument30]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GBL
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument31]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GBO
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument32]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GBP
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GBO
 DItemRevisionGUID=
 
 [GeneratedDocument33]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GBS
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GBP
 DItemRevisionGUID=
 
 [GeneratedDocument34]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GD1
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GBS
 DItemRevisionGUID=
 
 [GeneratedDocument35]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GG1
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GD1
 DItemRevisionGUID=
 
 [GeneratedDocument36]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GKO
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GG1
 DItemRevisionGUID=
 
 [GeneratedDocument37]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GPB
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GKO
 DItemRevisionGUID=
 
 [GeneratedDocument38]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GPT
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GPB
 DItemRevisionGUID=
 
 [GeneratedDocument39]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GTL
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GPT
 DItemRevisionGUID=
 
 [GeneratedDocument40]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GTO
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument41]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GTP
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument42]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GTS
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument43]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\NC Drill\uBlox ZED F9P HandHeld.LDP
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument44]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.REP
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\NC Drill\uBlox ZED F9P HandHeld.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument45]
-DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.RUL
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.REP
 DItemRevisionGUID=
 
 [GeneratedDocument46]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\NC Drill\uBlox ZED F9P Miratlas-RoundHoles.TXT
+DocumentPath=Project Outputs for uBlox ZED F9P HELIOS V11_0 HandHeld\Gerber\uBlox ZED F9P HandHeld.RUL
 DItemRevisionGUID=
 
 [GeneratedDocument47]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\NC Drill\uBlox ZED F9P Miratlas-RoundHoles.TXT
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\NC Drill\uBlox ZED F9P Miratlas-RoundHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument48]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\NC Drill\uBlox ZED F9P Miratlas-SlotHoles.TXT
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\NC Drill\uBlox ZED F9P Miratlas-RoundHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument49]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\NC Drill\uBlox ZED F9P Miratlas-SlotHoles.TXT
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\NC Drill\uBlox ZED F9P Miratlas-SlotHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument50]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\NC Drill\uBlox ZED F9P Miratlas.DRR
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\NC Drill\uBlox ZED F9P Miratlas-SlotHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument51]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\NC Drill\uBlox ZED F9P Miratlas.DRR
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\NC Drill\uBlox ZED F9P Miratlas.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument52]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\NC Drill\uBlox ZED F9P Miratlas.DRR
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\NC Drill\uBlox ZED F9P Miratlas.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument53]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.EXTREP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\NC Drill\uBlox ZED F9P Miratlas.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument54]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.EXTREP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument55]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.EXTREP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument56]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GBL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument57]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GBL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument58]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GBL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument59]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GBO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument60]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GBO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GBO
 DItemRevisionGUID=
 
 [GeneratedDocument61]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GBO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GBO
 DItemRevisionGUID=
 
 [GeneratedDocument62]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GBP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GBO
 DItemRevisionGUID=
 
 [GeneratedDocument63]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GBP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GBP
 DItemRevisionGUID=
 
 [GeneratedDocument64]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GBP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GBP
 DItemRevisionGUID=
 
 [GeneratedDocument65]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GBS
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GBP
 DItemRevisionGUID=
 
 [GeneratedDocument66]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GBS
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GBS
 DItemRevisionGUID=
 
 [GeneratedDocument67]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GBS
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GBS
 DItemRevisionGUID=
 
 [GeneratedDocument68]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GD1
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GBS
 DItemRevisionGUID=
 
 [GeneratedDocument69]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GD1
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GD1
 DItemRevisionGUID=
 
 [GeneratedDocument70]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GD1
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GD1
 DItemRevisionGUID=
 
 [GeneratedDocument71]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GG1
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GD1
 DItemRevisionGUID=
 
 [GeneratedDocument72]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GG1
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GG1
 DItemRevisionGUID=
 
 [GeneratedDocument73]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GG1
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GG1
 DItemRevisionGUID=
 
 [GeneratedDocument74]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GKO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GG1
 DItemRevisionGUID=
 
 [GeneratedDocument75]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GKO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GKO
 DItemRevisionGUID=
 
 [GeneratedDocument76]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GKO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GKO
 DItemRevisionGUID=
 
 [GeneratedDocument77]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GPB
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GKO
 DItemRevisionGUID=
 
 [GeneratedDocument78]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GPB
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GPB
 DItemRevisionGUID=
 
 [GeneratedDocument79]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GPB
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GPB
 DItemRevisionGUID=
 
 [GeneratedDocument80]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GPT
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GPB
 DItemRevisionGUID=
 
 [GeneratedDocument81]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GPT
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GPT
 DItemRevisionGUID=
 
 [GeneratedDocument82]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GPT
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GPT
 DItemRevisionGUID=
 
 [GeneratedDocument83]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GTL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GPT
 DItemRevisionGUID=
 
 [GeneratedDocument84]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GTL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument85]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GTL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument86]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GTO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument87]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GTO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument88]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GTO
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument89]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GTP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument90]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GTP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument91]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GTP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument92]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GTS
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument93]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GTS
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument94]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GTS
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument95]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\NC Drill\uBlox ZED F9P Miratlas.LDP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument96]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\NC Drill\uBlox ZED F9P Miratlas.LDP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\NC Drill\uBlox ZED F9P Miratlas.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument97]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\NC Drill\uBlox ZED F9P Miratlas.LDP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\NC Drill\uBlox ZED F9P Miratlas.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument98]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.REP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\NC Drill\uBlox ZED F9P Miratlas.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument99]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.REP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.REP
 DItemRevisionGUID=
 
 [GeneratedDocument100]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.REP
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.REP
 DItemRevisionGUID=
 
 [GeneratedDocument101]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.RUL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.REP
 DItemRevisionGUID=
 
 [GeneratedDocument102]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.RUL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_2\Gerber\uBlox ZED F9P Miratlas.RUL
 DItemRevisionGUID=
 
 [GeneratedDocument103]
-DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.RUL
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas 1_3\Gerber\uBlox ZED F9P Miratlas.RUL
 DItemRevisionGUID=
 
 [GeneratedDocument104]
+DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\Gerber\uBlox ZED F9P Miratlas.RUL
+DItemRevisionGUID=
+
+[GeneratedDocument105]
 DocumentPath=Project Outputs for uBlox ZED F9P Miratlas\NC Drill\uBlox ZED F9P Miratlas.TXT
 DItemRevisionGUID=
 
@@ -545,6 +566,45 @@ ConfigurationType=
 
 [Generic_EDE]
 OutputDir=
+
+[Generic_SmartPDF]
+AutoOpenFile=-1
+AutoOpenOutJob=-1
+
+[Generic_SmartPDFSettings]
+ProjectMode=-1
+ZoomPrecision=50
+AddNetsInformation=-1
+AddNetPins=-1
+AddNetNetLabels=-1
+AddNetPorts=-1
+ShowComponentParameters=-1
+GlobalBookmarks=0
+ExportBOM=-1
+TemplateFilename=
+TemplateStoreRelative=-1
+PCB_PrintColor=1
+SCH_PrintColor=0
+PrintQuality=-3
+SCH_ShowNoErc=-1
+SCH_ShowParameter=-1
+SCH_ShowProbes=-1
+SCH_ShowBlankets=-1
+SCH_NoERCSymbolsToShow="Thin Cross","Thick Cross","Small Cross",Checkbox,Triangle
+SCH_ShowNote=-1
+SCH_ShowNoteCollapsed=-1
+Wir_PrintColor=0
+Ldr_PrintColor=0
+Esd_PrintColor=0
+SCH_ExpandLogicalToPhysical=0
+SCH_VariantName=[No Variations]
+SCH_ExpandComponentDesignators=-1
+SCH_ExpandNetlabels=0
+SCH_ExpandPorts=0
+SCH_ExpandSheetNumber=0
+SCH_ExpandDocumentNumber=0
+SCH_HasExpandLogicalToPhysicalSheets=-1
+SaveSettingsToOutJob=-1
 
 [OutputGroup1]
 Name=Netlist Outputs
@@ -1053,36 +1113,6 @@ OutputName12=Web Review Data
 OutputDocumentPath12=
 OutputVariantName12=
 OutputDefault12=0
-OutputType13=Ansoft Neutral
-OutputName13=Ansoft Neutral (AutoPCB)
-OutputDocumentPath13=
-OutputVariantName13=
-OutputDefault13=0
-OutputType14=HyperLynx
-OutputName14=HyperLynx (AutoPCB)
-OutputDocumentPath14=
-OutputVariantName14=
-OutputDefault14=0
-OutputType15=MathWorks
-OutputName15=MathWorks (AutoPCB)
-OutputDocumentPath15=
-OutputVariantName15=
-OutputDefault15=0
-OutputType16=Orcad v7 Capture Design
-OutputName16=Orcad v7 Capture Design (AutoSCH)
-OutputDocumentPath16=
-OutputVariantName16=
-OutputDefault16=0
-OutputType17=P-CAD ASCII
-OutputName17=P-CAD ASCII (AutoPCB)
-OutputDocumentPath17=
-OutputVariantName17=
-OutputDefault17=0
-OutputType18=P-CAD V16 Schematic Design
-OutputName18=P-CAD V16 Schematic Design (AutoSCH)
-OutputDocumentPath18=
-OutputVariantName18=
-OutputDefault18=0
 
 [OutputGroup10]
 Name=PostProcess Outputs
