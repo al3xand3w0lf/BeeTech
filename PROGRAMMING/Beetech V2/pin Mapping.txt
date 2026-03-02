@@ -1,0 +1,17 @@
+SCL = 9
+SDA = 8
+SPI SCK = 12
+SPI MISO = 13
+SPI MOSI = 11
+SPI CS = 10
+CARD Detect = 46
+
+BL (LCD Background) = 14
+LCD D/C = 3
+LCD RES = 20
+LCD CS = 19
+
+User Button = 0
+DATA Temp Sensor = 2
+Data Scale = 1
+SCK Scale = 7

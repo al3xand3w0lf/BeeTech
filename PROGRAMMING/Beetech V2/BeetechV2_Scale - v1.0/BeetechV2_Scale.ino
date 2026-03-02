@@ -1,22 +1,19 @@
 /*
  * BeetechV2_Scale - IoT Beehive Scale
  *
- * Hardware ESP32S3 Dev Module
- * - ESP32-S3 Dev Board (D1 R3, 16MB Flash)
- * - HX711 24-bit ADC (4 Load Cells in Wheatstone Bridge)
+ * Hardware:
+ * - Adafruit ESP32 Feather V2 (8MB Flash, 2MB PSRAM)
+ * - Adafruit HX711 24-bit ADC (4 Load Cells in Wheatstone Bridge)
  * - DS18B20 Temperature Sensor
- * - ST7567 LCD Display (128x64, SPI) - AiP31567 driver
+ * - SH1106 OLED Display (128x64, I2C)
  * - SD Card (SPI) for configuration
  *
- * Pin Configuration (ESP32-S3):
- * - GPIO 1:  HX711 Data
- * - GPIO 7:  HX711 Clock
- * - GPIO 2:  DS18B20 OneWire
- * - SPI (SCK=12, MOSI=11, MISO=13): SD Card (CS=10) + LCD (CS=19)
- * - GPIO 3:  LCD D/C
- * - GPIO 20: LCD Reset
- * - GPIO 14: LCD Backlight
- * - I2C (SDA=8, SCL=9)
+ * Pin Configuration:
+ * - A0 (GPIO26): HX711 Clock
+ * - A1 (GPIO25): HX711 Data
+ * - A3 (GPIO39): DS18B20 OneWire
+ * - Standard VSPI: SD Card
+ * - I2C (0x3C): SH1106 OLED
  */
 
 #include <WiFi.h>
@@ -35,36 +32,12 @@
 #include <ESP32_MySQL.h>
 
 // =============================================================================
-// Pin Definitions (ESP32-S3)
+// Pin Definitions
 // =============================================================================
-// Scale
-#define HX711_DOUT_PIN    1
-#define HX711_CLK_PIN     7
-
-// Temperature
-#define DS18B20_PIN       2
-
-// SPI Bus (shared by SD Card and LCD)
-#define SPI_SCK_PIN       12
-#define SPI_MISO_PIN      13
-#define SPI_MOSI_PIN      11
-
-// SD Card
-#define SD_CS_PIN         10
-#define SD_CARD_DETECT    46
-
-// LCD (ST7567)
-#define LCD_CS_PIN        19
-#define LCD_DC_PIN        3
-#define LCD_RES_PIN       20
-#define LCD_BL_PIN        14
-
-// I2C
-#define I2C_SDA_PIN       8
-#define I2C_SCL_PIN       9
-
-// User Button
-#define USER_BUTTON_PIN   0
+#define HX711_DOUT_PIN    26    // A1
+#define HX711_CLK_PIN     25    // A0
+#define DS18B20_PIN       14    // A3
+#define SD_CS_PIN         4     // A5
 
 // =============================================================================
 // Hardware Objects
@@ -75,8 +48,8 @@ OneWire oneWire(DS18B20_PIN);
 DallasTemperature tempSensor(&oneWire);
 DeviceAddress tempDeviceAddress;
 
-// ST7567 LCD 128x64 SPI (AiP31567 driver)
-U8G2_ST7567_ENH_DG128064I_F_4W_HW_SPI lcd(U8G2_R0, LCD_CS_PIN, LCD_DC_PIN, LCD_RES_PIN);
+// SH1106 OLED 128x64 I2C (Adresse 0x3C = 0x78 >> 1)
+U8G2_SH1106_128X64_NONAME_F_HW_I2C oled(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 // MySQL connection objects
 WiFiClient wifiClient;
@@ -151,12 +124,12 @@ float scale_read();
 bool temp_init();
 float temp_read();
 
-// ST7567_LCD.ino
-void lcd_init();
-void lcd_showStartup();
-void lcd_showData(float weight, float temp);
-void lcd_showStatus(const char* status);
-void lcd_showError(const char* error);
+// SH1106_OLED.ino
+void oled_init();
+void oled_showStartup();
+void oled_showData(float weight, float temp);
+void oled_showStatus(const char* status);
+void oled_showError(const char* error);
 
 // Database.ino
 bool wifi_connect();
@@ -179,27 +152,24 @@ void setup() {
     Serial.println("  Beetech V2 - IoT Beehive Scale");
     Serial.println("================================");
 
-    // Initialize SPI bus (shared by SD Card and LCD)
-    SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SD_CS_PIN);
-
     // Initialize I2C
-    Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
+    Wire.begin();
 
-    // Initialize LCD
-    lcd_init();
-    lcd_showStartup();
+    // Initialize OLED
+    oled_init();
+    oled_showStartup();
     delay(1000);
 
     // Initialize SD Card and load config
-    lcd_showStatus("Loading config...");
+    oled_showStatus("Loading config...");
     if (!sdCard_init()) {
-        lcd_showError("SD Card Error!");
+        oled_showError("SD Card Error!");
         Serial.println("ERROR: SD Card initialization failed!");
         while(1) { delay(1000); }
     }
 
     if (!sdCard_loadConfig()) {
-        lcd_showError("Config Error!");
+        oled_showError("Config Error!");
         Serial.println("ERROR: Failed to load config.txt!");
         while(1) { delay(1000); }
     }
@@ -211,7 +181,7 @@ void setup() {
     Serial.println(CONFIG.station_name);
 
     // Initialize Scale
-    lcd_showStatus("Init Scale...");
+    oled_showStatus("Init Scale...");
     SENSOR_DATA.scale_connected = scale_init();
     if (SENSOR_DATA.scale_connected) {
         Serial.println("Scale initialized OK");
@@ -220,7 +190,7 @@ void setup() {
     }
 
     // Initialize Temperature Sensor
-    lcd_showStatus("Init Temp...");
+    oled_showStatus("Init Temp...");
     SENSOR_DATA.temp_connected = temp_init();
     if (SENSOR_DATA.temp_connected) {
         Serial.println("Temperature sensor initialized OK");
@@ -229,23 +199,23 @@ void setup() {
     }
 
     // Connect to WiFi
-    lcd_showStatus("Connecting WiFi...");
+    oled_showStatus("Connecting WiFi...");
     if (!wifi_connect()) {
-        lcd_showError("WiFi Error!");
+        oled_showError("WiFi Error!");
         Serial.println("ERROR: WiFi connection failed!");
         // Continue anyway, will retry later
     }
 
     // Connect to MySQL database
-    lcd_showStatus("Connecting DB...");
+    oled_showStatus("Connecting DB...");
     if (!db_connect()) {
-        lcd_showError("DB Error!");
+        oled_showError("DB Error!");
         Serial.println("WARNING: Database connection failed - will retry on upload");
     } else {
         Serial.println("Database connected!");
     }
 
-    lcd_showStatus("Ready");
+    oled_showStatus("Ready");
     delay(1000);
 
     Serial.println("================================");
@@ -280,7 +250,7 @@ void loop() {
         }
 
         // Update display
-        lcd_showData(SENSOR_DATA.weight, SENSOR_DATA.temperature);
+        oled_showData(SENSOR_DATA.weight, SENSOR_DATA.temperature);
 
         // Print to Serial
         Serial.print("Weight: ");
