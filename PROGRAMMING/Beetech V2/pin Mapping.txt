@@ -1,8 +1,8 @@
 SCL = 9
 SDA = 8
-SPI SCK = 12
-SPI MISO = 13
-SPI MOSI = 11
+SPI SCK = 12   - Signal detected
+SPI MISO = 13  -
+SPI MOSI = 11  - Signal detected
 SPI CS = 10
 CARD Detect = 46
 
