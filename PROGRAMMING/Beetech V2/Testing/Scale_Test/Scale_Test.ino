@@ -12,8 +12,8 @@
  * Wiring:
  * - HX711 VCC  -> 3.3V
  * - HX711 GND  -> GND
- * - HX711 DT   -> GPIO25 (A1)
- * - HX711 SCK  -> GPIO26 (A0)
+ * - HX711 DT   -> GPIO 1 (A1)
+ * - HX711 SCK  -> GPIO 7 (A0)
  */
 
 #include <HX711.h>
@@ -21,8 +21,8 @@
 // =============================================================================
 // Pin Configuration
 // =============================================================================
-#define HX711_DOUT_PIN    26    // A1 - Data
-#define HX711_CLK_PIN     25    // A0 - Clock
+#define HX711_DOUT_PIN    1
+#define HX711_CLK_PIN     7
 
 // =============================================================================
 // Calibration - ADJUST THIS VALUE

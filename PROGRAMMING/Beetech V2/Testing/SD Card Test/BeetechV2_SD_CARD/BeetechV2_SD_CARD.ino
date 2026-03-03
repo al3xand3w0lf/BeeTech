@@ -2,7 +2,7 @@
  * BeetechV2_Scale - IoT Beehive Scale
  *
  * Hardware ESP32S3 Dev Module
- * - ESP32-S3 Dev Board (D1 R3, 8MB Flash, 2MB PS RAM)
+ * - ESP32-S3 Dev Board (D1 R3, 16MB Flash)
  * - HX711 24-bit ADC (4 Load Cells in Wheatstone Bridge)
  * - DS18B20 Temperature Sensor
  * - ST7567 LCD Display (128x64, SPI) - AiP31567 driver
@@ -182,6 +182,7 @@ void setup() {
     // Initialize SPI bus (shared by SD Card and LCD)
     SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SD_CS_PIN);
 
+    /*
     // Initialize I2C
     Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
 
@@ -192,6 +193,8 @@ void setup() {
 
     // Initialize SD Card and load config
     lcd_showStatus("Loading config...");
+    */
+
     if (!sdCard_init()) {
         lcd_showError("SD Card Error!");
         Serial.println("ERROR: SD Card initialization failed!");
@@ -209,6 +212,10 @@ void setup() {
     Serial.print(CONFIG.station_number);
     Serial.print(" - ");
     Serial.println(CONFIG.station_name);
+
+    while(1){
+
+    }
 
     // Initialize Scale
     lcd_showStatus("Init Scale...");
