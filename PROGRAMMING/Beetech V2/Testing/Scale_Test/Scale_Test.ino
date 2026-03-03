@@ -33,6 +33,7 @@ long CALIBRATION_FACTOR = -17200;  // Adjust for your load cells
 // Objects
 // =============================================================================
 HX711 scale;
+bool continuousMode = true;  // Toggle with 'p' command
 
 // =============================================================================
 // Setup
@@ -63,8 +64,8 @@ void setup() {
         Serial.println("Check wiring:");
         Serial.println("- VCC to 3.3V");
         Serial.println("- GND to GND");
-        Serial.println("- DT to GPIO25");
-        Serial.println("- SCK to GPIO26");
+        Serial.println("- DT to GPIO1");
+        Serial.println("- SCK to GPIO7");
         while(1) delay(1000);
     }
 
@@ -98,6 +99,7 @@ void printHelp() {
     Serial.println("-     - Decrease calibration factor by 100");
     Serial.println("raw   - Read raw value (no calibration)");
     Serial.println("cal X - Calibrate with known weight X kg");
+    Serial.println("p     - Pause/resume continuous output");
     Serial.println("h     - Show this help");
     Serial.println();
 }
@@ -107,11 +109,14 @@ void printHelp() {
 // =============================================================================
 void loop() {
     // Continuous weight display
-    if (scale.is_ready()) {
+    if (continuousMode && scale.is_ready()) {
         float weight = scale.get_units(5);  // Average of 5 readings
+        long raw = scale.read();
         Serial.print("Weight: ");
         Serial.print(weight, 2);
-        Serial.print(" kg  |  Cal: ");
+        Serial.print(" kg  |  Raw: ");
+        Serial.print(raw);
+        Serial.print("  |  Cal: ");
         Serial.print(CALIBRATION_FACTOR);
         Serial.println();
     }
@@ -200,6 +205,11 @@ void processCommand(String cmd) {
         } else {
             Serial.println("Usage: cal <weight_in_kg>");
         }
+    }
+    else if (cmd == "p") {
+        continuousMode = !continuousMode;
+        Serial.print(">>> Continuous output: ");
+        Serial.println(continuousMode ? "ON" : "OFF");
     }
     else if (cmd == "h") {
         printHelp();

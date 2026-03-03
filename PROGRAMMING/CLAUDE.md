@@ -8,77 +8,66 @@ BeeTech is an IoT beehive monitoring system with multiple hardware variants. The
 
 ## Build System
 
-This is an Arduino-based firmware project. There is no Makefile or PlatformIO configuration - use Arduino IDE for compilation and upload.
+Arduino-based firmware project — use Arduino IDE for compilation and upload. No Makefile or PlatformIO.
 
 ### Target Boards
-- **Beetech V1 (GSM/CAN)**: Arduino MKR GSM 1400
-- **Beetech V1 (Slave nodes)**: Arduino Nano Every
-- **Beetech V2 (WiFi)**: Adafruit ESP32 Feather V2
+- **Beetech V1 (Master)**: Arduino MKR GSM 1400
+- **Beetech V1 (Slave)**: Arduino Nano Every
+- **Beetech V2 (current)**: ESP32-S3 Dev Board (replaced Adafruit ESP32 Feather V2)
 - **Beetech ETH**: Adafruit Feather ESP32
 
-### Key Libraries Required
+### Arduino IDE Settings (V2 current)
+```
+Board:        ESP32-S3 Dev Board
+Upload Speed: 921600
+Flash Mode:   QIO
+```
 
-#### All Variants
-- HX711 (load cell amplifier)
-- DallasTemperature + OneWire (DS18B20 temperature sensors)
+### Key Libraries
 
-#### Beetech V1 (MKR GSM 1400)
-- CAN (CAN bus communication)
-- MKRGSM + MySQL_Connection (GSM upload)
-- Adafruit_NeoPixel (status LED)
-- Adafruit_ILI9341 (TFT display)
-
-#### Beetech V2 (ESP32 Feather V2)
-- ESP32_MySQL by Syafiqlim (direct MySQL connection)
-- U8g2lib (SH1106 OLED display)
-- SD (configuration from SD card)
-
-#### Beetech ETH
-- U8g2lib (OLED display)
-- ArduinoJson + HTTPClient (WiFi/HTTP upload)
-- Adafruit_EEPROM_I2C (configuration storage)
+| Library | Used By | Purpose |
+|---------|---------|---------|
+| HX711 | All | Load cell amplifier |
+| DallasTemperature + OneWire | All | DS18B20 temperature sensors |
+| ESP32_MySQL (by Syafiqlim) | V2 | Direct MySQL connection |
+| U8g2 | V2, ETH | Display driver (ST7567 LCD / SH1106 OLED) |
+| SD | V2 | Configuration from SD card |
+| CAN | V1 | CAN bus communication |
+| MKRGSM + MySQL_Connection | V1 | GSM data upload |
+| Adafruit_ILI9341 | V1 | TFT display |
+| ArduinoJson + HTTPClient | ETH | WiFi/HTTP upload to InfluxDB |
 
 ## Architecture
 
-### Project Variants
-
-```
-Beetech V1/
-├── BeeHive_MKR1400_Board/     # Master station with GSM upload
-│   ├── BeeHive_GSM_CAN_Network/    # CAN bus network mode
-│   └── BeeHive_GSM_Standalone_noCAN/
-├── BeeHive_NanoEvery_Board/   # CAN slave nodes
-└── Testing/                   # Component test sketches
-
-Beetech V2/
-├── BeetechV2_Scale/           # ESP32 WiFi with direct MySQL
-│   ├── BeetechV2_Scale.ino    # Main sketch
-│   ├── Database.ino           # WiFi & MySQL (ESP32_MySQL)
-│   ├── DS18B20_Temperature.ino
-│   ├── HX711_Scale.ino
-│   ├── SdCard.ino             # Config from SD card
-│   ├── SH1106_OLED.ino
-│   └── Terminal.ino           # Serial commands
-├── Testing/
-│   ├── Database_Test/         # MySQL connection test
-│   ├── Scale_Test/            # HX711 calibration
-│   └── Temperature_Test/      # DS18B20 test
-├── config.txt                 # Example configuration
-└── README.md                  # V2 documentation
-
-Beetech ETH/
-└── Codes/BeehiveScale/        # ESP32 WiFi variant (HTTP)
-```
-
 ### Multi-File Sketch Pattern
-Each firmware variant is split into functional modules that Arduino IDE combines:
-- `*_main.ino` or `*.ino` - setup()/loop(), system initialization
-- `HX711_Scale.ino` - Load cell interface
-- `DS18B20_Temperature.ino` - Temperature sensors
-- `Database.ino` - Data upload (MySQL or HTTP)
-- `Terminal.ino` - Serial command interface
-- `SdCard.ino` - SD card and config loading
-- `*_OLED.ino` - Display functions
+Arduino IDE concatenates all `.ino` files in a sketch folder. Each variant splits code into functional modules:
+- Main `.ino` — `setup()`/`loop()`, globals, forward declarations for module functions
+- `HX711_Scale.ino` — Load cell interface
+- `DS18B20_Temperature.ino` — Temperature sensors
+- `Database.ino` — Data upload (MySQL or HTTP)
+- `Terminal.ino` — Serial command interface (115200 baud)
+- `SdCard.ino` — SD card config loading
+- Display `.ino` — `ST7567_LCD.ino` (V2 current), `SH1106_OLED.ino` (V2 v0.1), `LCD_ST7567.ino` (ETH), `ILI9341_tft.ino` (V1)
+
+### Hardware Versions (V2)
+
+**IMPORTANT**: Two V2 hardware versions exist in the repo with completely different pinouts:
+
+| | V2 v0.1 (`BeetechV2_Scale - v0.1/`) | V2 current (`BeetechV2_Scale/`) |
+|---|---|---|
+| **MCU** | Adafruit ESP32 Feather V2 | ESP32-S3 Dev Board |
+| **Display** | SH1106 OLED (I2C, 0x3C) | ST7567 LCD (SPI) |
+| **HX711 Data** | GPIO 25 (A1) | GPIO 1 |
+| **HX711 Clock** | GPIO 26 (A0) | GPIO 7 |
+| **DS18B20** | GPIO 14 | GPIO 2 |
+| **SD CS** | GPIO 4 (standard VSPI) | GPIO 10 (shared SPI) |
+| **I2C** | Default | SDA=8, SCL=9 |
+| **SPI** | Default VSPI | SCK=12, MOSI=11, MISO=13 |
+| **LCD Pins** | N/A (I2C) | CS=19, D/C=3, RES=20, BL=14 |
+| **User Button** | N/A | GPIO 0 |
+| **Card Detect** | N/A | GPIO 46 |
+
+The README.md in `Beetech V2/` still describes the v0.1 (Feather V2) hardware.
 
 ### Data Structures
 
@@ -89,7 +78,7 @@ typedef struct {
   float temp2_float;      // Scale temperature
   float weight_float;     // Weight in kg
   int   sound_int;        // Sound level
-} beehive_t;
+} beehive_t;              // Array of up to 20 hives
 ```
 
 #### V2 (Standalone)
@@ -122,90 +111,74 @@ typedef struct {
 
 ### Communication Protocols
 
-- **CAN Bus (V1)**: Master-slave network, 500kbps. Message IDs encode hive number + data type
-- **GSM/GPRS (V1)**: MySQL database upload via MKRGSM + MySQL_Connection library
-- **WiFi/MySQL (V2)**: Direct MySQL connection via ESP32_MySQL library
-- **WiFi/HTTP (ETH)**: JSON POST to Flask server → InfluxDB → Grafana
+- **CAN Bus (V1)**: Master-slave, 500kbps. Message IDs: 0x100=TEMP1, 0x200=TEMP2, 0x300=WEIGHT, 0x400=SOUND (offset by hive number)
+- **GSM/MySQL (V1)**: Direct MySQL via MKRGSM + MySQL_Connection
+- **WiFi/MySQL (V2)**: Direct MySQL via ESP32_MySQL library
+- **WiFi/HTTP (ETH)**: JSON POST → Flask server → InfluxDB → Grafana
+
+### Timing Model
+Non-blocking `millis()`-based intervals in `loop()`:
+- `dataPoll_interval` — sensor read frequency (10–60s typical)
+- `upload_interval` — database upload frequency (30+s typical)
+- V1 uses `uploadAfterXdatapolls` multiplier instead of separate upload interval
 
 ### Configuration
+SD card `/config.txt` with `key=value` format. Supports `#` comments and blank lines. Parsed line-by-line in `SdCard.ino`. Required fields validated on load.
 
-#### V1 - config.txt on SD card
-```
-station_number=0
-station_name=Lab_Beehive0
-calibration_factor=-24200
-dataPoll_intervall=60
-uploadAfterXdatapolls=5
-number_beehives=9
-```
-
-#### V2 - config.txt on SD card
-```
-station_number=0
-station_name=Beehive_Lab
-calibration_factor=-24200
-scale_offset=0.0
-dataPoll_interval=10
-upload_interval=30
-wifi_ssid=MyWiFi
-wifi_password=MyPassword
-db_server=91.204.46.146
-db_port=3306
-db_user=dbuser
-db_password=dbpass
-db_name=dbname
-db_table=BeetechData01
-deep_sleep_enabled=0
+### MySQL Database Schema (V2)
+```sql
+CREATE TABLE BeetechData01 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    location VARCHAR(100),
+    hive INT,
+    temp1 FLOAT,
+    temp2 FLOAT,
+    weight FLOAT,
+    sound INT
+);
 ```
 
-## Pin Configuration
-
-### Beetech V2 (ESP32 Feather V2)
-| Function | GPIO | Arduino Pin |
-|----------|------|-------------|
-| HX711 Data | 25 | A1 |
-| HX711 Clock | 26 | A0 |
-| DS18B20 | 39 | A3 |
-| SD Card CS | 4 | A5 |
-| I2C SDA | 23 | SDA |
-| I2C SCL | 22 | SCL |
+### Terminal Commands (V2, 115200 baud)
+`help`, `status`, `read`, `tare`, `cal XX`, `upload`, `wifi`, `db`, `reset`
 
 ## Testing
 
-### V2 Test Sketches
-Located in `Beetech V2/Testing/`:
+No automated test framework — testing is manual via Serial Monitor.
 
-- **Database_Test**: MySQL connection debugging with detailed error messages
-- **Scale_Test**: Interactive HX711 calibration tool
-- **Temperature_Test**: DS18B20 sensor scanner
+### V2 Test Sketches (`Beetech V2/Testing/`)
+- **Database_Test** — MySQL connection debugging
+- **Scale_Test** — Interactive HX711 calibration (`t`=tare, `cal X`=calibrate with X kg, `r`=read, `raw`=raw value, `+`/`-`=adjust factor)
+- **Temperature_Test** — DS18B20 scanner (`r`=read, `s`=scan, `raw`=raw OneWire scan)
 
-### V1 Test Sketches
-Located in `Beetech V1/Testing/` and `Beetech ETH/Codes/`:
-- `ScaleTest_*` - Load cell calibration
-- `DS18B20_test` - Temperature sensor verification
-- `I2C_Scanner` - Device discovery
-- `CanBus` - CAN communication testing
-
-There is no automated test framework - testing is manual via Serial Monitor.
+### V1 Test Sketches (`Beetech V1/Testing/`)
+- `ScaleTest_*` — Load cell calibration
+- `CanBus/` — CAN communication testing
+- `DS18B20_test` — Temperature sensor verification
+- `I2C_Scanner` — Device discovery
+- `SoundTest/` — Sound sensor testing
 
 ## Common Issues
 
 ### MySQL 8+ Authentication Error
-```
-[SQL] Can't connect. Error reading auth packets
-```
-**Solution**: MySQL 8+ uses `caching_sha2_password` by default. Change to `mysql_native_password`:
+`[SQL] Can't connect. Error reading auth packets` — MySQL 8+ defaults to `caching_sha2_password`. Fix:
 ```sql
 ALTER USER 'username'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 FLUSH PRIVILEGES;
 ```
 
 ### DS18B20 Not Found
-- Ensure 4.7kΩ pullup resistor between DATA and VCC
-- Check wiring connections
-- Use Temperature_Test sketch for debugging
+- 4.7kΩ pullup resistor between DATA and VCC required
+- Check correct GPIO for your hardware version (GPIO 2 on current V2, GPIO 14 on V2 v0.1)
 
 ### HX711 Not Responding
-- Check wiring (DT → GPIO25, SCK → GPIO26)
+- Check correct GPIO for your hardware version (GPIO 1/7 on current V2, GPIO 25/26 on V2 v0.1)
 - Ensure 3.3V power (not 5V)
-- Use Scale_Test sketch for debugging
+
+### SD Card Errors
+- Format as FAT32
+- `config.txt` must be in root directory
+- Use UTF-8 encoding with Unix line endings
+
+### WiFi
+- ESP32 supports 2.4 GHz only (no 5 GHz)
