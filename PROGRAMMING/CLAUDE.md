@@ -149,7 +149,9 @@ No automated test framework — testing is manual via Serial Monitor.
 ### V2 Test Sketches (`Beetech V2/Testing/`)
 - **Database_Test** — MySQL connection debugging
 - **Scale_Test** — Interactive HX711 calibration (`t`=tare, `cal X`=calibrate with X kg, `r`=read, `raw`=raw value, `+`/`-`=adjust factor)
+- **BeehiveScale_LCD** — Scale_Test combined with ST7567 LCD display (weight + raw/cal shown on LCD)
 - **Temperature_Test** — DS18B20 scanner (`r`=read, `s`=scan, `raw`=raw OneWire scan)
+- **LCD_Test/LCD_ST7567** — Standalone ST7567 LCD display test
 
 ### V1 Test Sketches (`Beetech V1/Testing/`)
 - `ScaleTest_*` — Load cell calibration
@@ -174,6 +176,7 @@ FLUSH PRIVILEGES;
 ### HX711 Not Responding
 - Check correct GPIO for your hardware version (GPIO 1/7 on current V2, GPIO 25/26 on V2 v0.1)
 - Ensure 3.3V power (not 5V)
+- **Calibration factor must be negative** (e.g., `-17200`). A positive factor produces inverted (negative) weight readings. Do NOT negate `get_units()` — use a negative factor instead.
 
 ### SD Card Errors
 - Format as FAT32
@@ -182,3 +185,4 @@ FLUSH PRIVILEGES;
 
 ### WiFi
 - ESP32 supports 2.4 GHz only (no 5 GHz)
+- V2 startup uses short WiFi timeout (5s) so boot is not blocked. Full reconnect (30s) happens on upload. WiFi auto-reconnect is enabled.
