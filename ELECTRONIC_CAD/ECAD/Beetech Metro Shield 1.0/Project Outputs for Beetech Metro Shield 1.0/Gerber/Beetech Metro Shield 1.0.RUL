@@ -1,5 +1,0 @@
-DRC Rules Export File for PCB: D:\Documents\PROJECTS\107 Beetech\BeeTech\ELECTRONIC_CAD\ECAD\Beetech Metro Shield 1.0\Beetech Metro Shield 1.0.PcbDoc
-RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
-RuleKind=Width|RuleName=Width|Scope=Board|Minimum=0.39
-RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=5.91
-RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
