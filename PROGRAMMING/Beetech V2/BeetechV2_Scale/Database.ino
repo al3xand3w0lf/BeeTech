@@ -11,7 +11,8 @@
  *   FLUSH PRIVILEGES;
  */
 
-#define WIFI_CONNECT_TIMEOUT_MS  30000
+#define WIFI_CONNECT_TIMEOUT_MS  30000   // full timeout for reconnect
+#define WIFI_STARTUP_TIMEOUT_MS  5000   // short timeout at startup
 
 // Server IP address (parsed from config)
 IPAddress db_server_ip;
@@ -20,23 +21,39 @@ IPAddress db_server_ip;
 // WiFi Connection
 // =============================================================================
 bool wifi_connect() {
+    return wifi_connectWithTimeout(WIFI_CONNECT_TIMEOUT_MS);
+}
+
+bool wifi_connectStartup() {
+    return wifi_connectWithTimeout(WIFI_STARTUP_TIMEOUT_MS);
+}
+
+bool wifi_connectWithTimeout(unsigned long timeoutMs) {
     Serial.println("Connecting to WiFi...");
 
     Serial.print("SSID: ");
     Serial.println(CONFIG.wifi_ssid);
 
     WiFi.mode(WIFI_STA);
+    WiFi.setAutoReconnect(true);
     WiFi.begin(CONFIG.wifi_ssid, CONFIG.wifi_password);
 
     unsigned long startTime = millis();
 
+    int dots = 0;
     while (WiFi.status() != WL_CONNECTED) {
-        if (millis() - startTime > WIFI_CONNECT_TIMEOUT_MS) {
+        if (millis() - startTime > timeoutMs) {
             Serial.println("\nWiFi connection timeout!");
             return false;
         }
         delay(500);
         Serial.print(".");
+
+        // Update LCD with animated dots
+        dots = (dots % 3) + 1;
+        char buf[20];
+        snprintf(buf, sizeof(buf), "Connecting%.*s", dots, "...");
+        lcd_showBootStep("WiFi", buf);
     }
 
     Serial.println();
