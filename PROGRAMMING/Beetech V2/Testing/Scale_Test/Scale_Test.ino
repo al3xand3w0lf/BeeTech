@@ -5,7 +5,7 @@
  * Use Serial Monitor to interact
  *
  * Hardware:
- * - Adafruit ESP32 Feather V2
+ * - ESP32S3 DEV
  * - HX711 24-bit ADC
  * - 4x Load Cells in Wheatstone Bridge
  *
