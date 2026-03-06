@@ -52,7 +52,7 @@ float scale_read() {
     }
 
     // Get average of multiple readings for stability
-    float weight = -scale.get_units(5);  // Average of 5 readings, negated for correct sign
+    float weight = scale.get_units(5);  // Average of 5 readings
 
     // Ensure non-negative (small fluctuations around zero)
     if (weight < 0 && weight > -0.5) {

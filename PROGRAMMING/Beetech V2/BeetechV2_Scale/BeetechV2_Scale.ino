@@ -154,12 +154,15 @@ float temp_read();
 // ST7567_LCD.ino
 void lcd_init();
 void lcd_showStartup();
+void lcd_showBootStep(const char* step, const char* status);
 void lcd_showData(float weight, float temp);
 void lcd_showStatus(const char* status);
 void lcd_showError(const char* error);
 
 // Database.ino
 bool wifi_connect();
+bool wifi_connectStartup();
+bool wifi_connectWithTimeout(unsigned long timeoutMs);
 bool db_connect();
 bool db_testTCPConnection();
 bool db_uploadData(int stationNum, const char* stationName, float temp, float weight);
@@ -188,21 +191,23 @@ void setup() {
     // Initialize LCD
     lcd_init();
     lcd_showStartup();
-    delay(1000);
+    delay(1500);
 
     // Initialize SD Card and load config
-    lcd_showStatus("Loading config...");
+    lcd_showBootStep("SD Card", "Loading...");
     if (!sdCard_init()) {
-        lcd_showError("SD Card Error!");
+        lcd_showError("SD Card failed!");
         Serial.println("ERROR: SD Card initialization failed!");
         while(1) { delay(1000); }
     }
 
     if (!sdCard_loadConfig()) {
-        lcd_showError("Config Error!");
+        lcd_showError("Config invalid!");
         Serial.println("ERROR: Failed to load config.txt!");
         while(1) { delay(1000); }
     }
+    lcd_showBootStep("SD Card", "OK");
+    delay(500);
 
     Serial.println("Config loaded successfully");
     Serial.print("Station: ");
@@ -211,49 +216,61 @@ void setup() {
     Serial.println(CONFIG.station_name);
 
     // Initialize Scale
-    lcd_showStatus("Init Scale...");
+    lcd_showBootStep("Scale", "Loading...");
     SENSOR_DATA.scale_connected = scale_init();
     if (SENSOR_DATA.scale_connected) {
+        lcd_showBootStep("Scale", "OK");
         Serial.println("Scale initialized OK");
     } else {
+        lcd_showBootStep("Scale", "FAIL");
         Serial.println("WARNING: Scale initialization failed!");
     }
+    delay(500);
 
     // Initialize Temperature Sensor
-    lcd_showStatus("Init Temp...");
+    lcd_showBootStep("Temperature", "Loading...");
     SENSOR_DATA.temp_connected = temp_init();
     if (SENSOR_DATA.temp_connected) {
+        lcd_showBootStep("Temperature", "OK");
         Serial.println("Temperature sensor initialized OK");
     } else {
+        lcd_showBootStep("Temperature", "Not found");
         Serial.println("WARNING: Temperature sensor not found!");
     }
+    delay(500);
 
-    // Connect to WiFi
-    lcd_showStatus("Connecting WiFi...");
-    if (!wifi_connect()) {
-        lcd_showError("WiFi Error!");
-        Serial.println("ERROR: WiFi connection failed!");
-        // Continue anyway, will retry later
-    }
-
-    // Connect to MySQL database
-    lcd_showStatus("Connecting DB...");
-    if (!db_connect()) {
-        lcd_showError("DB Error!");
-        Serial.println("WARNING: Database connection failed - will retry on upload");
+    // Connect to WiFi (short timeout, continues if unavailable)
+    lcd_showBootStep("WiFi", "Connecting...");
+    if (!wifi_connectStartup()) {
+        lcd_showBootStep("WiFi", "Not available");
+        Serial.println("WARNING: WiFi not available - will retry on upload");
+        delay(1000);
     } else {
-        Serial.println("Database connected!");
+        lcd_showBootStep("WiFi", "OK");
+        delay(500);
+
+        // Only try DB if WiFi is connected
+        lcd_showBootStep("Database", "Connecting...");
+        if (!db_connect()) {
+            lcd_showBootStep("Database", "Not available");
+            Serial.println("WARNING: Database connection failed - will retry on upload");
+            delay(1000);
+        } else {
+            lcd_showBootStep("Database", "OK");
+            Serial.println("Database connected!");
+            delay(500);
+        }
     }
 
-    lcd_showStatus("Ready");
+    lcd_showBootStep("Beetech V2", "Ready!");
     delay(1000);
 
     Serial.println("================================");
     Serial.println("  System Ready - Starting Loop");
     Serial.println("================================");
 
-    // Initial reading
-    lastPollMillis = millis();
+    // Force first sensor read immediately
+    lastPollMillis = 0;
     lastUploadMillis = millis();
 }
 
