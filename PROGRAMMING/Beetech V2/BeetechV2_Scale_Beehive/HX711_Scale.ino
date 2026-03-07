@@ -25,12 +25,13 @@ bool scale_init() {
     // Set calibration factor from config
     scale.set_scale(CONFIG.calibration_factor);
 
-    // Apply offset if configured
-    if (CONFIG.scale_offset != 0.0) {
-        scale.set_offset((long)(CONFIG.scale_offset * CONFIG.calibration_factor));
+    // Apply stored tare offset, or tare live if no offset saved
+    if (CONFIG.scale_offset != 0) {
+        Serial.println("Using stored tare offset");
+        scale.set_offset(CONFIG.scale_offset);
     } else {
-        // Tare the scale (set current weight as zero)
-        Serial.println("Taring scale...");
+        // No stored offset - tare with current load (setup mode only)
+        Serial.println("No stored offset - taring scale...");
         scale.tare(10);  // Average of 10 readings
     }
 
@@ -52,7 +53,7 @@ float scale_read() {
     }
 
     // Get average of multiple readings for stability
-    float weight = -scale.get_units(5);  // Average of 5 readings, negated for correct sign
+    float weight = scale.get_units(5);  // Average of 5 readings
 
     // Ensure non-negative (small fluctuations around zero)
     if (weight < 0 && weight > -0.5) {

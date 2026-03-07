@@ -10,14 +10,19 @@ station_name=Beehive_Lab
 # ===========================================
 # Scale calibration
 # ===========================================
-calibration_factor=-24200
-scale_offset=0.0
+# Use terminal command 'cal XX' to calibrate with known weight
+# Typical values: -15000 to -25000 (negative for most load cells)
+calibration_factor=-17100
+# Tare offset is stored separately in /tare_offset.txt
+# Use 'tare' then 'saveoffset' in terminal, or create file manually
 
 # ===========================================
 # Timing (in seconds)
 # ===========================================
-dataPoll_interval=10
-upload_interval=30
+# dataPoll_interval: how often to read sensors (setup mode only)
+# upload_interval: how often to upload to database (also = deep sleep duration)
+dataPoll_interval=1
+upload_interval=60
 
 # ===========================================
 # WiFi credentials
@@ -25,15 +30,14 @@ upload_interval=30
 w#ifi_ssid=ETHIGPWIFI
 w#ifi_password=ETHIGPWIFI
 
-w#ifi_ssid=FibreBox_X6-2FF847
-w#ifi_password=WallaWalla40!
+wifi_ssid=FibreBox_X6-2FF847
+wifi_password=WallaWalla40!
 
-wifi_ssid=TP-Link_E0EE
-wifi_password=63789252
-
+wi#fi_ssid=TP-Link_E0EE
+wi#fi_password=63789252
 
 # ===========================================
-# MySQL Database (direct connection like V1)
+# MySQL Database
 # ===========================================
 db_server=91.204.46.146
 db_port=3306
@@ -45,4 +49,6 @@ db_table=BeetechData03
 # ===========================================
 # Power management
 # ===========================================
+# deep_sleep_enabled=0 : Setup mode (terminal active, no sleep)
+# deep_sleep_enabled=1 : Betrieb (measure, upload, sleep for upload_interval)
 deep_sleep_enabled=0

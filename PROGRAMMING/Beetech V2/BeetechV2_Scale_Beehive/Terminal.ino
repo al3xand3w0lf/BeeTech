@@ -66,6 +66,16 @@ void terminal_executeCommand(char* cmd) {
     else if (strcmp(cmdLower, "tare") == 0) {
         scale_tare();
         Serial.println("Scale tared");
+        Serial.println("Use 'saveoffset' to persist this offset to SD card");
+    }
+    else if (strcmp(cmdLower, "saveoffset") == 0) {
+        long offset = scale.get_offset();
+        if (sdCard_saveOffset(offset)) {
+            CONFIG.scale_offset = offset;
+            Serial.println("Offset saved! You can now enable deep_sleep_enabled=1 in config.txt");
+        } else {
+            Serial.println("Failed to save offset to SD card");
+        }
     }
     else if (strncmp(cmdLower, "cal ", 4) == 0) {
         float knownWeight = atof(cmd + 4);
@@ -101,15 +111,16 @@ void terminal_showHelp() {
     Serial.println();
     Serial.println("=== Beetech V2 Terminal ===");
     Serial.println("Available commands:");
-    Serial.println("  help    - Show this help");
-    Serial.println("  status  - Show system status");
-    Serial.println("  read    - Read current sensor values");
-    Serial.println("  tare    - Tare the scale");
-    Serial.println("  cal XX  - Calibrate with known weight (kg)");
-    Serial.println("  upload  - Force data upload");
-    Serial.println("  wifi    - Show WiFi status");
-    Serial.println("  db      - Show database status");
-    Serial.println("  reset   - Restart system");
+    Serial.println("  help       - Show this help");
+    Serial.println("  status     - Show system status");
+    Serial.println("  read       - Read current sensor values");
+    Serial.println("  tare       - Tare the scale");
+    Serial.println("  saveoffset - Save tare offset to SD card");
+    Serial.println("  cal XX     - Calibrate with known weight (kg)");
+    Serial.println("  upload     - Force data upload");
+    Serial.println("  wifi       - Show WiFi status");
+    Serial.println("  db         - Show database status");
+    Serial.println("  reset      - Restart system");
     Serial.println();
 }
 
@@ -141,6 +152,12 @@ void terminal_showStatus() {
     Serial.print("Upload interval: ");
     Serial.print(CONFIG.upload_interval);
     Serial.println(" sec");
+
+    Serial.print("Scale offset: ");
+    Serial.println(scale.get_offset());
+
+    Serial.print("Stored offset: ");
+    Serial.println(CONFIG.scale_offset);
 
     Serial.print("Deep sleep: ");
     Serial.println(CONFIG.deep_sleep_enabled ? "Enabled" : "Disabled");

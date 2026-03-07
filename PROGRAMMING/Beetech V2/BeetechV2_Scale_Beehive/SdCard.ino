@@ -34,7 +34,7 @@ bool sdCard_loadConfig() {
     CONFIG.station_number = 0;
     strcpy(CONFIG.station_name, "Unknown");
     CONFIG.calibration_factor = -24200;
-    CONFIG.scale_offset = 0.0;
+    CONFIG.scale_offset = 0;
     CONFIG.dataPoll_interval = 60;
     CONFIG.upload_interval = 300;
     strcpy(CONFIG.wifi_ssid, "");
@@ -151,7 +151,7 @@ void parseLine(char* line) {
         CONFIG.calibration_factor = atol(value);
     }
     else if (strcmp(key, "scale_offset") == 0) {
-        CONFIG.scale_offset = atof(value);
+        CONFIG.scale_offset = atol(value);
     }
     else if (strcmp(key, "dataPoll_interval") == 0) {
         CONFIG.dataPoll_interval = atoi(value);
@@ -192,4 +192,54 @@ void parseLine(char* line) {
     Serial.print(key);
     Serial.print(" = ");
     Serial.println(value);
+}
+
+// =============================================================================
+// Tare Offset File (/tare_offset.txt)
+// =============================================================================
+bool sdCard_loadOffset() {
+    File f = SD.open("/tare_offset.txt");
+    if (!f) {
+        Serial.println("No tare_offset.txt found - using config/tare");
+        return false;
+    }
+
+    char buf[32];
+    int len = 0;
+    while (f.available() && len < 31) {
+        char c = f.read();
+        if (c == '\n' || c == '\r') break;
+        buf[len++] = c;
+    }
+    buf[len] = '\0';
+    f.close();
+
+    if (len > 0) {
+        CONFIG.scale_offset = atol(buf);
+        Serial.print("Loaded tare offset from file: ");
+        Serial.println(CONFIG.scale_offset);
+        return true;
+    }
+
+    return false;
+}
+
+bool sdCard_saveOffset(long offset) {
+    // Remove existing file first
+    if (SD.exists("/tare_offset.txt")) {
+        SD.remove("/tare_offset.txt");
+    }
+
+    File f = SD.open("/tare_offset.txt", FILE_WRITE);
+    if (!f) {
+        Serial.println("ERROR: Cannot write tare_offset.txt");
+        return false;
+    }
+
+    f.println(offset);
+    f.close();
+
+    Serial.print("Tare offset saved to SD: ");
+    Serial.println(offset);
+    return true;
 }

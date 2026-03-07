@@ -1,25 +1,29 @@
 /*
  * BeetechV2_Scale - IoT Beehive Scale
  *
- * Hardware:
- * - Adafruit ESP32 Feather V2 (8MB Flash, 2MB PSRAM)
- * - Adafruit HX711 24-bit ADC (4 Load Cells in Wheatstone Bridge)
+ * Hardware ESP32S3 Dev Module
+ * - ESP32-S3 Dev Board (D1 R3, 8MB Flash, 2MB PS RAM)
+ * - HX711 24-bit ADC (4 Load Cells in Wheatstone Bridge)
  * - DS18B20 Temperature Sensor
- * - SH1106 OLED Display (128x64, I2C)
+ * - ST7567 LCD Display (128x64, SPI) - AiP31567 driver
  * - SD Card (SPI) for configuration
  *
- * Pin Configuration:
- * - A0 (GPIO26): HX711 Clock
- * - A1 (GPIO25): HX711 Data
- * - A3 (GPIO39): DS18B20 OneWire
- * - Standard VSPI: SD Card
- * - I2C (0x3C): SH1106 OLED
+ * Pin Configuration (ESP32-S3):
+ * - GPIO 1:  HX711 Data
+ * - GPIO 7:  HX711 Clock
+ * - GPIO 2:  DS18B20 OneWire
+ * - SPI (SCK=12, MOSI=11, MISO=13): SD Card (CS=10) + LCD (CS=19)
+ * - GPIO 3:  LCD D/C
+ * - GPIO 20: LCD Reset
+ * - GPIO 14: LCD Backlight
+ * - I2C (SDA=8, SCL=9)
  */
 
 #include <WiFi.h>
 #include <SPI.h>
 #include <SD.h>
 #include <Wire.h>
+#include <driver/gpio.h>
 
 #include <HX711.h>
 #include <OneWire.h>
@@ -32,12 +36,36 @@
 #include <ESP32_MySQL.h>
 
 // =============================================================================
-// Pin Definitions
+// Pin Definitions (ESP32-S3)
 // =============================================================================
-#define HX711_DOUT_PIN    26    // A1
-#define HX711_CLK_PIN     25    // A0
-#define DS18B20_PIN       14    // A3
-#define SD_CS_PIN         4     // A5
+// Scale
+#define HX711_DOUT_PIN    1
+#define HX711_CLK_PIN     7
+
+// Temperature
+#define DS18B20_PIN       2
+
+// SPI Bus (shared by SD Card and LCD)
+#define SPI_SCK_PIN       12
+#define SPI_MISO_PIN      13
+#define SPI_MOSI_PIN      11
+
+// SD Card
+#define SD_CS_PIN         10
+#define SD_CARD_DETECT    46
+
+// LCD (ST7567)
+#define LCD_CS_PIN        19
+#define LCD_DC_PIN        3
+#define LCD_RES_PIN       20
+#define LCD_BL_PIN        14
+
+// I2C
+#define I2C_SDA_PIN       8
+#define I2C_SCL_PIN       9
+
+// User Button
+#define USER_BUTTON_PIN   0
 
 // =============================================================================
 // Hardware Objects
@@ -48,8 +76,8 @@ OneWire oneWire(DS18B20_PIN);
 DallasTemperature tempSensor(&oneWire);
 DeviceAddress tempDeviceAddress;
 
-// SH1106 OLED 128x64 I2C (Adresse 0x3C = 0x78 >> 1)
-U8G2_SH1106_128X64_NONAME_F_HW_I2C oled(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+// ST7567 LCD 128x64 SPI (AiP31567 driver)
+U8G2_ST7567_ENH_DG128064I_F_4W_HW_SPI lcd(U8G2_R0, LCD_CS_PIN, LCD_DC_PIN, LCD_RES_PIN);
 
 // MySQL connection objects
 WiFiClient wifiClient;
@@ -65,7 +93,7 @@ typedef struct {
 
     // Scale
     long calibration_factor;
-    float scale_offset;
+    long scale_offset;           // raw HX711 tare offset (loaded from /tare_offset.txt)
 
     // Timing
     int dataPoll_interval;      // seconds
@@ -115,6 +143,8 @@ char INSERT_SQL[200];
 // SdCard.ino
 bool sdCard_init();
 bool sdCard_loadConfig();
+bool sdCard_loadOffset();
+bool sdCard_saveOffset(long offset);
 
 // HX711_Scale.ino
 bool scale_init();
@@ -124,15 +154,18 @@ float scale_read();
 bool temp_init();
 float temp_read();
 
-// SH1106_OLED.ino
-void oled_init();
-void oled_showStartup();
-void oled_showData(float weight, float temp);
-void oled_showStatus(const char* status);
-void oled_showError(const char* error);
+// ST7567_LCD.ino
+void lcd_init();
+void lcd_showStartup();
+void lcd_showBootStep(const char* step, const char* status);
+void lcd_showData(float weight, float temp);
+void lcd_showStatus(const char* status);
+void lcd_showError(const char* error);
 
 // Database.ino
 bool wifi_connect();
+bool wifi_connectStartup();
+bool wifi_connectWithTimeout(unsigned long timeoutMs);
 bool db_connect();
 bool db_testTCPConnection();
 bool db_uploadData(int stationNum, const char* stationName, float temp, float weight);
@@ -152,27 +185,43 @@ void setup() {
     Serial.println("  Beetech V2 - IoT Beehive Scale");
     Serial.println("================================");
 
-    // Initialize I2C
-    Wire.begin();
+    // Release GPIO holds from previous deep sleep (if waking up)
+    gpio_hold_dis((gpio_num_t)LCD_CS_PIN);
+    gpio_hold_dis((gpio_num_t)LCD_RES_PIN);
+    gpio_hold_dis((gpio_num_t)LCD_BL_PIN);
+    gpio_hold_dis((gpio_num_t)LCD_DC_PIN);
+    gpio_deep_sleep_hold_dis();
 
-    // Initialize OLED
-    oled_init();
-    oled_showStartup();
-    delay(1000);
+    // Initialize SPI bus (shared by SD Card and LCD)
+    SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SD_CS_PIN);
+
+    // Initialize I2C
+    Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
+
+    // Initialize LCD
+    lcd_init();
+    lcd_showStartup();
+    delay(1500);
 
     // Initialize SD Card and load config
-    oled_showStatus("Loading config...");
+    lcd_showBootStep("SD Card", "Loading...");
     if (!sdCard_init()) {
-        oled_showError("SD Card Error!");
+        lcd_showError("SD Card failed!");
         Serial.println("ERROR: SD Card initialization failed!");
         while(1) { delay(1000); }
     }
 
     if (!sdCard_loadConfig()) {
-        oled_showError("Config Error!");
+        lcd_showError("Config invalid!");
         Serial.println("ERROR: Failed to load config.txt!");
         while(1) { delay(1000); }
     }
+
+    // Load tare offset from separate file (overrides config value)
+    sdCard_loadOffset();
+
+    lcd_showBootStep("SD Card", "OK");
+    delay(500);
 
     Serial.println("Config loaded successfully");
     Serial.print("Station: ");
@@ -181,49 +230,100 @@ void setup() {
     Serial.println(CONFIG.station_name);
 
     // Initialize Scale
-    oled_showStatus("Init Scale...");
+    lcd_showBootStep("Scale", "Loading...");
     SENSOR_DATA.scale_connected = scale_init();
     if (SENSOR_DATA.scale_connected) {
+        lcd_showBootStep("Scale", "OK");
         Serial.println("Scale initialized OK");
     } else {
+        lcd_showBootStep("Scale", "FAIL");
         Serial.println("WARNING: Scale initialization failed!");
     }
+    delay(500);
 
     // Initialize Temperature Sensor
-    oled_showStatus("Init Temp...");
+    lcd_showBootStep("Temperature", "Loading...");
     SENSOR_DATA.temp_connected = temp_init();
     if (SENSOR_DATA.temp_connected) {
+        lcd_showBootStep("Temperature", "OK");
         Serial.println("Temperature sensor initialized OK");
     } else {
+        lcd_showBootStep("Temperature", "Not found");
         Serial.println("WARNING: Temperature sensor not found!");
     }
+    delay(500);
 
-    // Connect to WiFi
-    oled_showStatus("Connecting WiFi...");
-    if (!wifi_connect()) {
-        oled_showError("WiFi Error!");
-        Serial.println("ERROR: WiFi connection failed!");
-        // Continue anyway, will retry later
-    }
-
-    // Connect to MySQL database
-    oled_showStatus("Connecting DB...");
-    if (!db_connect()) {
-        oled_showError("DB Error!");
-        Serial.println("WARNING: Database connection failed - will retry on upload");
+    // Connect to WiFi (short timeout, continues if unavailable)
+    lcd_showBootStep("WiFi", "Connecting...");
+    if (!wifi_connectStartup()) {
+        lcd_showBootStep("WiFi", "Not available");
+        Serial.println("WARNING: WiFi not available - will retry on upload");
+        delay(1000);
     } else {
-        Serial.println("Database connected!");
+        lcd_showBootStep("WiFi", "OK");
+        delay(500);
+
+        // Only try DB if WiFi is connected
+        lcd_showBootStep("Database", "Connecting...");
+        if (!db_connect()) {
+            lcd_showBootStep("Database", "Not available");
+            Serial.println("WARNING: Database connection failed - will retry on upload");
+            delay(1000);
+        } else {
+            lcd_showBootStep("Database", "OK");
+            Serial.println("Database connected!");
+            delay(500);
+        }
     }
 
-    oled_showStatus("Ready");
+    lcd_showBootStep("Beetech V2", "Ready!");
     delay(1000);
 
     Serial.println("================================");
-    Serial.println("  System Ready - Starting Loop");
+    Serial.println("  System Ready");
     Serial.println("================================");
 
-    // Initial reading
-    lastPollMillis = millis();
+    // Deep Sleep Mode: single measure + upload, then sleep
+    if (CONFIG.deep_sleep_enabled) {
+        Serial.println("Deep Sleep mode active");
+
+        // Read sensors
+        if (SENSOR_DATA.scale_connected) {
+            SENSOR_DATA.weight = scale_read();
+        }
+        if (SENSOR_DATA.temp_connected) {
+            SENSOR_DATA.temperature = temp_read();
+        }
+
+        Serial.print("Weight: ");
+        Serial.print(SENSOR_DATA.weight, 2);
+        Serial.print(" kg, Temp: ");
+        Serial.print(SENSOR_DATA.temperature, 1);
+        Serial.println(" C");
+
+        // Upload
+        if (wifi_isConnected() || wifi_connect()) {
+            if (db_uploadData(CONFIG.station_number, CONFIG.station_name,
+                              SENSOR_DATA.temperature, SENSOR_DATA.weight)) {
+                Serial.println("Upload successful");
+            } else {
+                Serial.println("Upload failed");
+            }
+        } else {
+            Serial.println("WiFi not available - data lost");
+        }
+
+        // Show sensor data on LCD (stays visible during deep sleep)
+        lcd_showData(SENSOR_DATA.weight, SENSOR_DATA.temperature);
+
+        // Enter deep sleep
+        enterDeepSleep();
+        // Never reaches here
+    }
+
+    // Normal mode (setup mode): start loop
+    Serial.println("Setup mode - Terminal active");
+    lastPollMillis = 0;
     lastUploadMillis = millis();
 }
 
@@ -250,7 +350,7 @@ void loop() {
         }
 
         // Update display
-        oled_showData(SENSOR_DATA.weight, SENSOR_DATA.temperature);
+        lcd_showData(SENSOR_DATA.weight, SENSOR_DATA.temperature);
 
         // Print to Serial
         Serial.print("Weight: ");
@@ -280,6 +380,36 @@ void loop() {
 
     // Small delay to prevent watchdog issues
     delay(100);
+}
+
+// =============================================================================
+// Deep Sleep
+// =============================================================================
+void enterDeepSleep() {
+    unsigned long sleepSeconds = CONFIG.upload_interval;
+    Serial.print("Entering deep sleep for ");
+    Serial.print(sleepSeconds);
+    Serial.println(" seconds...");
+
+    // Power down peripherals (except LCD)
+    scale_powerDown();
+    WiFi.disconnect(true);
+    WiFi.mode(WIFI_OFF);
+
+    // Hold LCD pins so display stays on during deep sleep
+    // CS=HIGH (deselect SPI), RES=HIGH (no reset), BL=LOW (backlight on, active LOW)
+    gpio_hold_en((gpio_num_t)LCD_CS_PIN);
+    gpio_hold_en((gpio_num_t)LCD_RES_PIN);
+    gpio_hold_en((gpio_num_t)LCD_BL_PIN);
+    gpio_hold_en((gpio_num_t)LCD_DC_PIN);
+    gpio_deep_sleep_hold_en();
+
+    // Configure timer wakeup
+    esp_sleep_enable_timer_wakeup((uint64_t)sleepSeconds * 1000000ULL);
+
+    Serial.flush();
+    esp_deep_sleep_start();
+    // Never reaches here - after wake, setup() runs again
 }
 
 // =============================================================================

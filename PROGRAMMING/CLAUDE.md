@@ -53,21 +53,22 @@ Arduino IDE concatenates all `.ino` files in a sketch folder. Each variant split
 
 **IMPORTANT**: Two V2 hardware versions exist in the repo with completely different pinouts:
 
-| | V2 v0.1 (`BeetechV2_Scale - v0.1/`) | V2 current (`BeetechV2_Scale/`) |
-|---|---|---|
-| **MCU** | Adafruit ESP32 Feather V2 | ESP32-S3 Dev Board |
-| **Display** | SH1106 OLED (I2C, 0x3C) | ST7567 LCD (SPI) |
-| **HX711 Data** | GPIO 25 (A1) | GPIO 1 |
-| **HX711 Clock** | GPIO 26 (A0) | GPIO 7 |
-| **DS18B20** | GPIO 14 | GPIO 2 |
-| **SD CS** | GPIO 4 (standard VSPI) | GPIO 10 (shared SPI) |
-| **I2C** | Default | SDA=8, SCL=9 |
-| **SPI** | Default VSPI | SCK=12, MOSI=11, MISO=13 |
-| **LCD Pins** | N/A (I2C) | CS=19, D/C=3, RES=20, BL=14 |
-| **User Button** | N/A | GPIO 0 |
-| **Card Detect** | N/A | GPIO 46 |
+The current V2 hardware uses an ESP32-S3 Dev Board. The main production sketch is `BeetechV2_Scale_Beehive/`. The previous `BeetechV2_Scale/` sketch is now in `Testing/` for basic scale testing without deep sleep.
 
-The README.md in `Beetech V2/` still describes the v0.1 (Feather V2) hardware.
+| Pin | Function |
+|---|---|
+| GPIO 1 | HX711 Data |
+| GPIO 7 | HX711 Clock |
+| GPIO 2 | DS18B20 OneWire |
+| GPIO 10 | SD Card CS |
+| GPIO 12/11/13 | SPI SCK/MOSI/MISO |
+| GPIO 19 | LCD CS |
+| GPIO 3 | LCD D/C |
+| GPIO 20 | LCD Reset |
+| GPIO 14 | LCD Backlight (active LOW) |
+| GPIO 8/9 | I2C SDA/SCL |
+| GPIO 0 | User Button |
+| GPIO 46 | SD Card Detect |
 
 ### Data Structures
 
@@ -94,7 +95,7 @@ typedef struct {
     int station_number;
     char station_name[50];
     long calibration_factor;
-    float scale_offset;
+    long scale_offset;           // raw HX711 tare offset
     int dataPoll_interval;
     int upload_interval;
     char wifi_ssid[50];
@@ -116,14 +117,27 @@ typedef struct {
 - **WiFi/MySQL (V2)**: Direct MySQL via ESP32_MySQL library
 - **WiFi/HTTP (ETH)**: JSON POST → Flask server → InfluxDB → Grafana
 
+### Operating Modes (V2)
+
+Controlled by `deep_sleep_enabled` in `config.txt`:
+
+- **Setup mode** (`deep_sleep_enabled=0`): Normal loop with terminal, LCD, periodic sensor reads and uploads. Use for tare/calibration.
+- **Deep Sleep mode** (`deep_sleep_enabled=1`): Boot → init → measure → upload → deep sleep for `upload_interval` seconds. LCD stays on during sleep (GPIO hold). `dataPoll_interval` is ignored.
+
+### Tare Offset Persistence (V2)
+
+The tare offset is stored as a raw HX711 `long` value in `/tare_offset.txt` on the SD card (separate from `config.txt`). On boot, `sdCard_loadOffset()` loads it and overrides `CONFIG.scale_offset`. If no file exists and no offset is configured, the scale auto-tares with current load.
+
+Workflow: `tare` → `saveoffset` in terminal, or manually create `/tare_offset.txt` with the known offset value.
+
 ### Timing Model
-Non-blocking `millis()`-based intervals in `loop()`:
+Non-blocking `millis()`-based intervals in `loop()` (setup mode only):
 - `dataPoll_interval` — sensor read frequency (10–60s typical)
-- `upload_interval` — database upload frequency (30+s typical)
+- `upload_interval` — database upload frequency / deep sleep duration (30+s typical)
 - V1 uses `uploadAfterXdatapolls` multiplier instead of separate upload interval
 
 ### Configuration
-SD card `/config.txt` with `key=value` format. Supports `#` comments and blank lines. Parsed line-by-line in `SdCard.ino`. Required fields validated on load.
+SD card `/config.txt` with `key=value` format. Supports `#` comments and blank lines. Parsed line-by-line in `SdCard.ino`. Required fields validated on load. Tare offset is stored separately in `/tare_offset.txt`.
 
 ### MySQL Database Schema (V2)
 ```sql
@@ -140,7 +154,9 @@ CREATE TABLE BeetechData01 (
 ```
 
 ### Terminal Commands (V2, 115200 baud)
-`help`, `status`, `read`, `tare`, `cal XX`, `upload`, `wifi`, `db`, `reset`
+`help`, `status`, `read`, `tare`, `saveoffset`, `cal XX`, `upload`, `wifi`, `db`, `reset`
+
+See `Beetech V2/terminal_cli.md` for full CLI reference.
 
 ## Testing
 
@@ -148,6 +164,7 @@ No automated test framework — testing is manual via Serial Monitor.
 
 ### V2 Test Sketches (`Beetech V2/Testing/`)
 - **Database_Test** — MySQL connection debugging
+- **BeetechV2_Scale** — Basic IoT scale (no deep sleep, continuous loop mode, for testing)
 - **Scale_Test** — Interactive HX711 calibration (`t`=tare, `cal X`=calibrate with X kg, `r`=read, `raw`=raw value, `+`/`-`=adjust factor)
 - **BeehiveScale_LCD** — Scale_Test combined with ST7567 LCD display (weight + raw/cal shown on LCD)
 - **Temperature_Test** — DS18B20 scanner (`r`=read, `s`=scan, `raw`=raw OneWire scan)
