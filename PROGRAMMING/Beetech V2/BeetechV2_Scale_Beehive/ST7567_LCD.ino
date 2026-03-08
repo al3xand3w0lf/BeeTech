@@ -77,23 +77,30 @@ void lcd_showBootStep(const char* step, const char* status) {
 void lcd_showData(float weight, float temp) {
     lcd.clearBuffer();
 
-    // Weight — big, dominant, left-aligned
-    lcd.setFont(u8g2_font_logisoso32_tf);
+    // Station header (top line)
+    lcd.setFont(u8g2_font_6x12_tf);
+    char stationStr[60];
+    snprintf(stationStr, sizeof(stationStr), "#%d %s", CONFIG.station_number, CONFIG.station_name);
+    lcd_drawCentered(10, stationStr);
+    lcd.drawHLine(0, 12, 128);
+
+    // Weight — dominant, left-aligned
+    lcd.setFont(u8g2_font_logisoso24_tf);
     char weightStr[16];
     if (weight < 0 || weight > 999) {
         snprintf(weightStr, sizeof(weightStr), "--.-");
     } else {
         dtostrf(weight, 5, 1, weightStr);
     }
-    lcd.drawStr(0, 38, weightStr);
+    lcd.drawStr(0, 40, weightStr);
 
     // "kg" right of weight value
     int weightWidth = lcd.getStrWidth(weightStr);
     lcd.setFont(u8g2_font_helvB12_tf);
-    lcd.drawStr(weightWidth + 4, 38, "kg");
+    lcd.drawStr(weightWidth + 4, 40, "kg");
 
     // Separator
-    lcd.drawHLine(0, 44, 128);
+    lcd.drawHLine(0, 46, 128);
 
     // Temperature bottom
     lcd.setFont(u8g2_font_helvB12_tf);
