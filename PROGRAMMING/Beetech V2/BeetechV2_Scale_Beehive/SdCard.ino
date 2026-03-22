@@ -10,13 +10,44 @@
 bool sdCard_init() {
     Serial.println("Initializing SD card...");
 
-    if (!SD.begin(SD_CS_PIN)) {
-        Serial.println("SD card initialization failed!");
-        return false;
+    // Ensure LCD is deselected so SD has exclusive SPI access
+    pinMode(LCD_CS_PIN, OUTPUT);
+    digitalWrite(LCD_CS_PIN, HIGH);
+
+    // Ensure SD CS starts HIGH (deselected)
+    pinMode(SD_CS_PIN, OUTPUT);
+    digitalWrite(SD_CS_PIN, HIGH);
+    delay(10);
+
+    // Retry loop — after deep sleep the SD card often needs multiple attempts
+    const int maxRetries = 3;
+    for (int attempt = 1; attempt <= maxRetries; attempt++) {
+        // End any previous SD/SPI session (stale state after deep sleep)
+        SD.end();
+        SPI.end();
+        delay(100);
+
+        // Re-init SPI fresh before each SD attempt
+        SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, -1);
+        delay(10);
+
+        if (SD.begin(SD_CS_PIN, SPI, 4000000)) {  // 4 MHz — conservative clock
+            Serial.print("SD card initialized (attempt ");
+            Serial.print(attempt);
+            Serial.println(")");
+            return true;
+        }
+
+        Serial.print("SD init attempt ");
+        Serial.print(attempt);
+        Serial.print("/");
+        Serial.print(maxRetries);
+        Serial.println(" failed, retrying...");
+        delay(200);
     }
 
-    Serial.println("SD card initialized");
-    return true;
+    Serial.println("SD card initialization failed after all retries!");
+    return false;
 }
 
 // =============================================================================

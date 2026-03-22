@@ -191,9 +191,11 @@ void setup() {
     gpio_hold_dis((gpio_num_t)LCD_BL_PIN);
     gpio_hold_dis((gpio_num_t)LCD_DC_PIN);
     gpio_deep_sleep_hold_dis();
+    delay(10);  // Let pins stabilize after hold release
 
     // Initialize SPI bus (shared by SD Card and LCD)
-    SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SD_CS_PIN);
+    // SS=-1: let SD and LCD libraries control their own CS pins via software
+    SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, -1);
 
     // Initialize I2C
     Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
