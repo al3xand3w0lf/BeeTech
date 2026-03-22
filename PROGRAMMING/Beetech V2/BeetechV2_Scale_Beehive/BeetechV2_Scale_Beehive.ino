@@ -21,7 +21,7 @@
 
 #include <WiFi.h>
 #include <SPI.h>
-#include <SD.h>
+#include "SdFat.h"
 #include <Wire.h>
 #include <driver/gpio.h>
 
@@ -79,6 +79,10 @@
 // =============================================================================
 // Hardware Objects
 // =============================================================================
+// SdFat — bypasses ESP-IDF SDSPI driver, handles warm-reset reliably
+// SdFs supports FAT32 and exFAT (auto-detect)
+SdFs sd;
+
 HX711 scale;
 
 OneWire oneWire(DS18B20_PIN);
@@ -224,15 +228,25 @@ void setup() {
     bool sdOK = sdCard_init() && sdCard_loadConfig();
 
     if (sdOK) {
-        // SD loaded successfully — load tare offset and cache config to NVS
         sdCard_loadOffset();
-        SD.end();   // Release SD card so it's clean for next boot
+        sd.end();
         nvs_saveConfig();
+    } else {
+        sd.end();
+    }
+
+    // Re-init SPI bus and LCD after SD card usage (SdFat changes SPI config)
+    SPI.end();
+    SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, -1);
+    lcd.begin();
+    lcd.setContrast(200);
+
+    if (sdOK) {
         lcd_showBootStep("SD Card", "OK");
         Serial.println("Config loaded from SD card (cached to NVS)");
         delay(500);
     } else {
-        // SD failed — try NVS fallback
+        // Try NVS fallback
         Serial.println("WARNING: SD Card failed, trying NVS fallback...");
         lcd_showBootStep("SD Card", "NVS Fallback");
 
@@ -417,7 +431,7 @@ void enterDeepSleep() {
     Serial.println(" seconds...");
 
     // Power down peripherals (except LCD)
-    SD.end();           // Properly unmount SD card before sleep
+    sd.end();           // Properly unmount SD card before sleep
     SPI.end();          // Release SPI bus
     scale_powerDown();
     WiFi.disconnect(true);

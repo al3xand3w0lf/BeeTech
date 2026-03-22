@@ -1,8 +1,13 @@
 /*
  * SdCard.ino - SD Card and Configuration Module
  *
- * Handles SD card initialization and config.txt parsing
+ * Uses SdFat library (Bill Greiman) instead of Arduino SD.h
+ * SdFat bypasses the ESP-IDF SDSPI driver which has a known bug
+ * with CMD52 CRC on warm reset after deep sleep (ESP-IDF #14000)
  */
+
+// SdFat SPI config: USER_SPI_BEGIN = we call SPI.begin() with custom pins ourselves
+#define SD_SPI_CONFIG SdSpiConfig(SD_CS_PIN, USER_SPI_BEGIN, SD_SCK_MHZ(4))
 
 // =============================================================================
 // SD Card Initialization
@@ -17,59 +22,22 @@ bool sdCard_init() {
     // Ensure SD CS starts HIGH (deselected)
     pinMode(SD_CS_PIN, OUTPUT);
     digitalWrite(SD_CS_PIN, HIGH);
-
-    // SD spec requires 1ms+ power-up time, be generous after deep sleep
     delay(100);
 
-    // Enable internal pull-up on MISO — ESP-IDF SD driver waits for MISO HIGH
+    // Enable internal pull-up on MISO
     pinMode(SPI_MISO_PIN, INPUT_PULLUP);
 
-    // Retry loop — full SPI reset + CMD0 before each attempt
-    const int maxRetries = 5;
+    // Retry loop
+    const int maxRetries = 3;
     for (int attempt = 1; attempt <= maxRetries; attempt++) {
-        SD.end();
-        SPI.end();
-        delay(100);
-
-        SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, -1);
-        SPI.beginTransaction(SPISettings(400000, MSBFIRST, SPI_MODE0));
-
-        // Send 80 dummy clock cycles with CS HIGH (SD spec requirement)
-        digitalWrite(SD_CS_PIN, HIGH);
-        for (int i = 0; i < 10; i++) {
-            SPI.transfer(0xFF);
-        }
-
-        // Send CMD0 (GO_IDLE_STATE) to force card into idle/SPI mode
-        // Critical after warm reset — card may be stuck with CRC ON from previous session
-        digitalWrite(SD_CS_PIN, LOW);
-        delayMicroseconds(100);
-        SPI.transfer(0x40 | 0);   // CMD0
-        SPI.transfer(0x00);
-        SPI.transfer(0x00);
-        SPI.transfer(0x00);
-        SPI.transfer(0x00);
-        SPI.transfer(0x95);        // Valid CRC for CMD0 (always 0x95)
-        // Read R1 response
-        for (int i = 0; i < 10; i++) {
-            uint8_t r = SPI.transfer(0xFF);
-            if (r != 0xFF) {
-                Serial.print("CMD0 response: 0x");
-                Serial.println(r, HEX);
-                break;
-            }
-        }
-        digitalWrite(SD_CS_PIN, HIGH);
-        SPI.transfer(0xFF);  // 8 extra clocks
-
-        SPI.endTransaction();
+        sd.end();
         SPI.end();
         delay(50);
 
-        // Now try SD.begin() with the card in a clean idle state
         SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, -1);
+        delay(10);
 
-        if (SD.begin(SD_CS_PIN, SPI, 4000000)) {
+        if (sd.begin(SD_SPI_CONFIG)) {
             Serial.print("SD card initialized (attempt ");
             Serial.print(attempt);
             Serial.println(")");
@@ -92,9 +60,9 @@ bool sdCard_init() {
 // Configuration Loading
 // =============================================================================
 bool sdCard_loadConfig() {
-    File configFile = SD.open("/config.txt");
+    FsFile configFile;
 
-    if (!configFile) {
+    if (!configFile.open("/config.txt", O_RDONLY)) {
         Serial.println("Failed to open config.txt");
         return false;
     }
@@ -267,8 +235,8 @@ void parseLine(char* line) {
 // Tare Offset File (/tare_offset.txt)
 // =============================================================================
 bool sdCard_loadOffset() {
-    File f = SD.open("/tare_offset.txt");
-    if (!f) {
+    FsFile f;
+    if (!f.open("/tare_offset.txt", O_RDONLY)) {
         Serial.println("No tare_offset.txt found - using config/tare");
         return false;
     }
@@ -295,12 +263,12 @@ bool sdCard_loadOffset() {
 
 bool sdCard_saveOffset(long offset) {
     // Remove existing file first
-    if (SD.exists("/tare_offset.txt")) {
-        SD.remove("/tare_offset.txt");
+    if (sd.exists("/tare_offset.txt")) {
+        sd.remove("/tare_offset.txt");
     }
 
-    File f = SD.open("/tare_offset.txt", FILE_WRITE);
-    if (!f) {
+    FsFile f;
+    if (!f.open("/tare_offset.txt", O_WRONLY | O_CREAT | O_TRUNC)) {
         Serial.println("ERROR: Cannot write tare_offset.txt");
         return false;
     }

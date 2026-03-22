@@ -42,7 +42,9 @@ void lcd_showStartup() {
 
     // Version
     lcd.setFont(u8g2_font_helvB14_tf);
-    lcd_drawCentered(54, "V2");
+    char versionStr[20];
+    snprintf(versionStr, sizeof(versionStr), "V2  v%s", FW_VERSION);
+    lcd_drawCentered(54, versionStr);
 
     // Bottom line
     lcd.setFont(u8g2_font_6x12_tf);
