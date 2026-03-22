@@ -17,21 +17,59 @@ bool sdCard_init() {
     // Ensure SD CS starts HIGH (deselected)
     pinMode(SD_CS_PIN, OUTPUT);
     digitalWrite(SD_CS_PIN, HIGH);
+
+    // SD spec requires 1ms+ power-up time, be generous after deep sleep
+    delay(100);
+
+    // Enable internal pull-up on MISO — ESP-IDF SD driver waits for MISO HIGH
+    pinMode(SPI_MISO_PIN, INPUT_PULLUP);
+
+    // Send 80 dummy clock cycles with CS HIGH (SD spec requirement)
+    // This puts the card into SPI mode after power-up or warm reset
+    SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, -1);
+    SPI.beginTransaction(SPISettings(400000, MSBFIRST, SPI_MODE0));  // 400 kHz per SD spec
+    digitalWrite(SD_CS_PIN, HIGH);
+    for (int i = 0; i < 10; i++) {
+        SPI.transfer(0xFF);  // 10 bytes = 80 clock cycles
+    }
+
+    // Send CMD0 (GO_IDLE_STATE) to force card out of any leftover SPI state
+    // This is critical after warm reset — card may have CRC enabled from previous session
+    digitalWrite(SD_CS_PIN, LOW);
+    delayMicroseconds(100);
+    SPI.transfer(0x40 | 0);   // CMD0
+    SPI.transfer(0x00);        // Arg [31:24]
+    SPI.transfer(0x00);        // Arg [23:16]
+    SPI.transfer(0x00);        // Arg [15:8]
+    SPI.transfer(0x00);        // Arg [7:0]
+    SPI.transfer(0x95);        // Valid CRC for CMD0 (always 0x95)
+    // Read R1 response
+    for (int i = 0; i < 10; i++) {
+        uint8_t r = SPI.transfer(0xFF);
+        if (r != 0xFF) {
+            Serial.print("CMD0 response: 0x");
+            Serial.println(r, HEX);
+            break;
+        }
+    }
+    digitalWrite(SD_CS_PIN, HIGH);
+    SPI.transfer(0xFF);  // 8 extra clocks
+
+    SPI.endTransaction();
+    SPI.end();
     delay(10);
 
-    // Retry loop — after deep sleep the SD card often needs multiple attempts
-    const int maxRetries = 3;
+    // Retry loop — some cards need multiple attempts after power state change
+    const int maxRetries = 5;
     for (int attempt = 1; attempt <= maxRetries; attempt++) {
-        // End any previous SD/SPI session (stale state after deep sleep)
         SD.end();
         SPI.end();
-        delay(100);
+        delay(50);
 
-        // Re-init SPI fresh before each SD attempt
         SPI.begin(SPI_SCK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, -1);
         delay(10);
 
-        if (SD.begin(SD_CS_PIN, SPI, 4000000)) {  // 4 MHz — conservative clock
+        if (SD.begin(SD_CS_PIN, SPI, 4000000)) {
             Serial.print("SD card initialized (attempt ");
             Serial.print(attempt);
             Serial.println(")");
@@ -43,7 +81,7 @@ bool sdCard_init() {
         Serial.print("/");
         Serial.print(maxRetries);
         Serial.println(" failed, retrying...");
-        delay(200);
+        delay(250 * attempt);  // Increasing delay: 250, 500, 750, 1000, 1250 ms
     }
 
     Serial.println("SD card initialization failed after all retries!");
@@ -272,5 +310,64 @@ bool sdCard_saveOffset(long offset) {
 
     Serial.print("Tare offset saved to SD: ");
     Serial.println(offset);
+    return true;
+}
+
+// =============================================================================
+// NVS (Non-Volatile Storage) — Config Fallback
+// =============================================================================
+void nvs_saveConfig() {
+    Preferences prefs;
+    prefs.begin("beetech", false);  // read-write
+
+    prefs.putInt("station_num", CONFIG.station_number);
+    prefs.putString("station_name", CONFIG.station_name);
+    prefs.putLong("cal_factor", CONFIG.calibration_factor);
+    prefs.putLong("scale_offset", CONFIG.scale_offset);
+    prefs.putInt("poll_interval", CONFIG.dataPoll_interval);
+    prefs.putInt("upload_interval", CONFIG.upload_interval);
+    prefs.putString("wifi_ssid", CONFIG.wifi_ssid);
+    prefs.putString("wifi_pass", CONFIG.wifi_password);
+    prefs.putString("db_server", CONFIG.db_server);
+    prefs.putInt("db_port", CONFIG.db_port);
+    prefs.putString("db_user", CONFIG.db_user);
+    prefs.putString("db_pass", CONFIG.db_password);
+    prefs.putString("db_name", CONFIG.db_name);
+    prefs.putString("db_table", CONFIG.db_table);
+    prefs.putInt("deep_sleep", CONFIG.deep_sleep_enabled);
+    prefs.putBool("valid", true);  // Mark NVS data as valid
+
+    prefs.end();
+    Serial.println("Config cached to NVS");
+}
+
+bool nvs_loadConfig() {
+    Preferences prefs;
+    prefs.begin("beetech", true);  // read-only
+
+    if (!prefs.getBool("valid", false)) {
+        prefs.end();
+        Serial.println("NVS: No valid config stored");
+        return false;
+    }
+
+    CONFIG.station_number = prefs.getInt("station_num", 0);
+    prefs.getString("station_name", CONFIG.station_name, sizeof(CONFIG.station_name));
+    CONFIG.calibration_factor = prefs.getLong("cal_factor", -24200);
+    CONFIG.scale_offset = prefs.getLong("scale_offset", 0);
+    CONFIG.dataPoll_interval = prefs.getInt("poll_interval", 60);
+    CONFIG.upload_interval = prefs.getInt("upload_interval", 300);
+    prefs.getString("wifi_ssid", CONFIG.wifi_ssid, sizeof(CONFIG.wifi_ssid));
+    prefs.getString("wifi_pass", CONFIG.wifi_password, sizeof(CONFIG.wifi_password));
+    prefs.getString("db_server", CONFIG.db_server, sizeof(CONFIG.db_server));
+    CONFIG.db_port = prefs.getInt("db_port", 3306);
+    prefs.getString("db_user", CONFIG.db_user, sizeof(CONFIG.db_user));
+    prefs.getString("db_pass", CONFIG.db_password, sizeof(CONFIG.db_password));
+    prefs.getString("db_name", CONFIG.db_name, sizeof(CONFIG.db_name));
+    prefs.getString("db_table", CONFIG.db_table, sizeof(CONFIG.db_table));
+    CONFIG.deep_sleep_enabled = prefs.getInt("deep_sleep", 0);
+
+    prefs.end();
+    Serial.println("Config loaded from NVS");
     return true;
 }

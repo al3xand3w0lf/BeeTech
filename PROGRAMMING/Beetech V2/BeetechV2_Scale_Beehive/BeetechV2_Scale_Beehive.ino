@@ -34,6 +34,7 @@
 #define ESP32_MYSQL_DEBUG_PORT Serial
 #define _ESP32_MYSQL_LOGLEVEL_ 2
 #include <ESP32_MySQL.h>
+#include <Preferences.h>
 
 // =============================================================================
 // Pin Definitions (ESP32-S3)
@@ -145,6 +146,8 @@ bool sdCard_init();
 bool sdCard_loadConfig();
 bool sdCard_loadOffset();
 bool sdCard_saveOffset(long offset);
+void nvs_saveConfig();
+bool nvs_loadConfig();
 
 // HX711_Scale.ino
 bool scale_init();
@@ -190,6 +193,7 @@ void setup() {
     gpio_hold_dis((gpio_num_t)LCD_RES_PIN);
     gpio_hold_dis((gpio_num_t)LCD_BL_PIN);
     gpio_hold_dis((gpio_num_t)LCD_DC_PIN);
+    gpio_hold_dis((gpio_num_t)SD_CS_PIN);   // Release SD CS in case it was held
     gpio_deep_sleep_hold_dis();
     delay(10);  // Let pins stabilize after hold release
 
@@ -207,23 +211,34 @@ void setup() {
 
     // Initialize SD Card and load config
     lcd_showBootStep("SD Card", "Loading...");
-    if (!sdCard_init()) {
-        lcd_showError("SD Card failed!");
-        Serial.println("ERROR: SD Card initialization failed!");
-        while(1) { delay(1000); }
+    bool sdOK = sdCard_init() && sdCard_loadConfig();
+
+    if (sdOK) {
+        // SD loaded successfully — load tare offset and cache config to NVS
+        sdCard_loadOffset();
+        SD.end();   // Release SD card so it's clean for next boot
+        nvs_saveConfig();
+        lcd_showBootStep("SD Card", "OK");
+        Serial.println("Config loaded from SD card (cached to NVS)");
+        delay(500);
+    } else {
+        // SD failed — try NVS fallback
+        Serial.println("WARNING: SD Card failed, trying NVS fallback...");
+        lcd_showBootStep("SD Card", "NVS Fallback");
+
+        if (nvs_loadConfig()) {
+            Serial.println("Config loaded from NVS fallback");
+            lcd_showBootStep("Config", "NVS OK");
+            delay(1000);
+        } else {
+            // No fallback available — show error, restart after 3s
+            lcd_showError("No config!");
+            Serial.println("ERROR: No SD card and no NVS fallback!");
+            Serial.println("Restarting in 3 seconds...");
+            delay(3000);
+            ESP.restart();
+        }
     }
-
-    if (!sdCard_loadConfig()) {
-        lcd_showError("Config invalid!");
-        Serial.println("ERROR: Failed to load config.txt!");
-        while(1) { delay(1000); }
-    }
-
-    // Load tare offset from separate file (overrides config value)
-    sdCard_loadOffset();
-
-    lcd_showBootStep("SD Card", "OK");
-    delay(500);
 
     Serial.println("Config loaded successfully");
     Serial.print("Station: ");
@@ -236,7 +251,6 @@ void setup() {
     SENSOR_DATA.scale_connected = scale_init();
     if (SENSOR_DATA.scale_connected) {
         lcd_showBootStep("Scale", "OK");
-        Serial.println("Scale initialized OK");
     } else {
         lcd_showBootStep("Scale", "FAIL");
         Serial.println("WARNING: Scale initialization failed!");
@@ -248,7 +262,6 @@ void setup() {
     SENSOR_DATA.temp_connected = temp_init();
     if (SENSOR_DATA.temp_connected) {
         lcd_showBootStep("Temperature", "OK");
-        Serial.println("Temperature sensor initialized OK");
     } else {
         lcd_showBootStep("Temperature", "Not found");
         Serial.println("WARNING: Temperature sensor not found!");
@@ -394,6 +407,8 @@ void enterDeepSleep() {
     Serial.println(" seconds...");
 
     // Power down peripherals (except LCD)
+    SD.end();           // Properly unmount SD card before sleep
+    SPI.end();          // Release SPI bus
     scale_powerDown();
     WiFi.disconnect(true);
     WiFi.mode(WIFI_OFF);
