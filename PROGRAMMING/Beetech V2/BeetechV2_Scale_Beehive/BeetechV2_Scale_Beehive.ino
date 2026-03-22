@@ -37,6 +37,14 @@
 #include <Preferences.h>
 
 // =============================================================================
+// Firmware Version (MAJOR.MINOR.PATCH)
+// =============================================================================
+#define FW_VERSION_MAJOR  1
+#define FW_VERSION_MINOR  0
+#define FW_VERSION_PATCH  0
+#define FW_VERSION        "1.0.0"
+
+// =============================================================================
 // Pin Definitions (ESP32-S3)
 // =============================================================================
 // Scale
@@ -186,6 +194,8 @@ void setup() {
     Serial.println();
     Serial.println("================================");
     Serial.println("  Beetech V2 - IoT Beehive Scale");
+    Serial.print("  Firmware v");
+    Serial.println(FW_VERSION);
     Serial.println("================================");
 
     // Release GPIO holds from previous deep sleep (if waking up)
